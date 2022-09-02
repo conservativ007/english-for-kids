@@ -1,0 +1,143 @@
+.header {
+  margin: 0 auto;
+  margin-top: 20px;
+  padding: 0 10px;
+  height: 80px;
+  background: white;
+  border-radius: 5px;
+
+  position: relative;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header .header-content {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.header .train {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 300px;
+  right: 20px;
+}
+
+.header .train {
+  width: 400px;
+  font-size: 20px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  text-transform: capitalize;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.header .train .on {
+  position: relative;
+  width: 50px;
+  height: 30px;
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: #c6c6c6;
+  outline: none;
+  border-radius: 20px;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  transition: 0.5s;
+  cursor: pointer;
+}
+
+.header .train .on:checked {
+  background-color: #03a9f4;
+}
+
+.header .train .on:before {
+  content: "";
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border-radius: 20px;
+  top: 0;
+  left: 0;
+  background: #dfe6e9;
+  transition: 0.5s;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.header .train .on:checked:before {
+  left: 22px;
+}
+
+.header .train .start-game {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  cursor: pointer;
+  transition: 1s;
+  width: 100px;
+  height: 30px;
+  border: 1px solid #00b894;
+}
+
+.header .train .start-game .repeat-button {
+  display: none;
+  transition: 0.5s;
+  width: 35px;
+  height: 35px;
+}
+
+.header .header-content__message {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 5px;
+  border-radius: 5px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 12px;
+  background-color: #00b894;
+  color: white;
+}
+
+.header .image {
+  display: block;
+  width: 50px;
+  cursor: pointer;
+}
+
+.header .statistics {
+  font-size: 20px;
+  padding: 10px;
+  background-color: #0984e3;
+  color: white;
+  cursor: pointer;
+  font-family: sans-serif;
+  letter-spacing: 1px;
+  font-variant: small-caps;
+  border-radius: 4px;
+}
+
+.description-category {
+  font-size: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+@media (max-width: 410px) {
+  .description-category {
+    display: none;
+  }
+}
+
+@media (max-width: 410px) {
+  .header {
+    width: 300px;
+  }
+}

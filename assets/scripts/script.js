@@ -1,6 +1,6 @@
 // import { pronunciation } from "./assets/scripts/pronunciation.js";
 // import { obj } from "./data.js";
-let patch = 'categories';
+let path = 'categories';
 
 let word = '';
 let arrCategory = [];
@@ -10,14 +10,14 @@ let counterShots = -1;
 
 init();
 function init() {
-  createCards(obj[patch]);
+  createCards(obj[path]);
   showDescriptionCategory();
 }
 
 
-function checkPatch(item) {
-  return patch == 'categories' ?
-    `data-action=${item}` : `data-item=${patch}`;
+function checkpath(item) {
+  return path == 'categories' ?
+    `data-action=${item}` : `data-item=${path}`;
 }
 
 
@@ -29,14 +29,14 @@ function addButtonAndSpicker() {
 }
 
 function addDescription() {
-  return patch == 'categories' ?
+  return path == 'categories' ?
     'card__categories-description' : 'card-description';
 }
 
 function addHidden() {
   let checked = document.querySelector('.on').checked;
 
-  if (checked && patch != 'categories') {
+  if (checked && path != 'categories') {
     return 'hidden';
   } else {
     return '';
@@ -45,25 +45,25 @@ function addHidden() {
 
 function addCards(item, index) {
   return `
-     <div ${checkPatch(item)} class="card">
+     <div ${checkpath(item)} class="card">
       <div class="front">
         <div dataset.card="card" class="card__img">
-          <img class="card__img-img" src="assets/images/${patch}/${item}.png">
+          <img class="card__img-img" src="assets/images/${path}/${item}.png">
         </div>
         <div class="${addDescription()} ${addHidden()}">
           <div class="card__description-en">
             ${item}
           </div>
-          ${patch != 'categories' ? addButtonAndSpicker() : ''}
-      </div>
+          ${path != 'categories' ? addButtonAndSpicker() : ''}
+        </div>
       </div>
 
       <div class="back">
         <div data.card="card" class="card__img">
-          <img class="card__img-img" src="assets/images/${patch}/${item}.png">
+          <img class="card__img-img" src="assets/images/${path}/${item}.png">
         </div>
         <div class="card__description-ru">
-          ${patch != 'categories' ? obj[patch + 'Ru'][index] : ''}
+          ${path != 'categories' ? obj[path + 'Ru'][index] : ''}
         </div>
       </div>
      </div>
@@ -79,11 +79,12 @@ function createCards(arr) {
 
 
 function showDescriptionCategory() {
-  document.querySelector('.description-category').innerHTML = `
-  <div class="category-name">
-    ${patch != 'categories' ? patch : ''}
-  </div>
-  `;
+  document.querySelector('.description-category').innerHTML = `${path != 'categories' ? path : ''}`;
+  // document.querySelector('.description-category').innerHTML = `
+  // <div class="category-name">
+  //   ${path != 'categories' ? path : ''}
+  // </div>
+  // `;
 
 }
 
@@ -95,11 +96,11 @@ document.addEventListener('click', (e) => {
   if (elem == null) return;
   if (elem.dataset.action) {
 
-    patch = elem.dataset.action;
-    window.location.href = `#${patch}`;
+    path = elem.dataset.action;
+    window.location.href = `#${path}`;
 
-    if (patch) {
-      createCards(obj[patch]);
+    if (path) {
+      createCards(obj[path]);
     }
 
     // описание категории
@@ -113,11 +114,23 @@ document.addEventListener('click', (e) => {
 
 
 // toggle menu
-document.addEventListener('click', (e) => {
-  if (e.target.className == 'image') {
+// document.addEventListener('click', (e) => {
+//   if (e.target.className == 'image') {
+//     toggleMenu();
+//   }
+// });
+
+document.addEventListener("click", (e) => {
+  if (isOpenMenu(e)) {
+    // console.log(42)
     toggleMenu();
   }
-});
+})
+
+function isOpenMenu(e) {
+  if (e.target.className === "hamburger" || e.target.className === "hamburger-child") return true;
+  return false;
+}
 
 function toggleMenu() {
   document.querySelector('.overlay').classList.toggle('add-width');
@@ -135,23 +148,16 @@ function addActive() {
   elems.forEach(i => i.classList.remove('active'));
 
   // добавляем класс active
-  let el = document.querySelector(`[data-category="${patch}"]`);
+  let el = document.querySelector(`[data-category="${path}"]`);
   el.classList.add('active');
 }
 
 
 // если меню открыто закрываем при клике вне меню
 document.addEventListener('click', (e) => {
-  if (e.target.className == 'image') return;
-  if (e.target.className == 'menu') return;
-  if (e.target.dataset.overlay) return;
-
-  // console.log(e.target);
-  let elem = document.querySelector('.overlay');
-  if (elem.classList.contains('add-width')) {
-    elem.classList.remove('add-width');
-  }
-
+  if (e.target.className === "overlay add-width" || e.target.className === "menu") return;
+  if (isOpenMenu(e) === true) return;
+  removeMenuClass();
 });
 
 
@@ -159,7 +165,7 @@ document.addEventListener('click', (e) => {
 // переход по навигационным ссылкам
 document.addEventListener('click', (e) => {
   if (e.target.dataset.category) {
-    patch = e.target.dataset.category;
+    path = e.target.dataset.category;
     init();
     addActive();
     removeMenuClass();
@@ -222,7 +228,7 @@ document.addEventListener('click', (e) => {
   if (e.target.className == 'start-game' || e.target.className == 'start-description') {
 
     // если мы находимся на главной странице с категориями
-    if (patch == 'categories') {
+    if (path == 'categories') {
       let message = document.querySelector('.header-content__message');
       message.classList.remove('hidden');
 
@@ -665,7 +671,7 @@ function reloadPage(modal, smile) {
   document.querySelector('.start-game').classList.toggle('hidden');
   document.querySelector('.start-game').classList.toggle('start');
 
-  patch = 'categories';
+  path = 'categories';
   word = '';
   arrCategory = [];
   shots = getRandomKeysArray(8);

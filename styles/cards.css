@@ -1,0 +1,169 @@
+.content-carts {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+/* @media (max-width: 720px) {
+  .content-carts {
+    width: 490px;
+  }
+}
+
+@media (max-width: 510px) {
+  .content-carts {
+    width: 240px;
+  }
+} */
+
+.card {
+  perspective: 1000px;
+  position: relative;
+  width: 23.5%;
+  height: 240px;
+  margin-top: 20px;
+  transition: 0.3s;
+}
+
+.card:nth-child(1) {
+  margin-left: 0;
+}
+
+.card:nth-child(5) {
+  margin-left: 0;
+}
+
+.card:nth-child(4) {
+  margin-right: 0;
+}
+
+.card:nth-child(8) {
+  margin-right: 0;
+}
+
+.card .card__img-img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.card .card__description-ru {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  font-size: 20px;
+}
+
+.card .button-reverse:hover {
+  transform: rotate(-100deg) scale(1.2, 1.2);
+  cursor: pointer;
+}
+
+.card .img-speaker:hover {
+  transform: scale(1.3, 1.3) rotateZ(20deg);
+  cursor: pointer;
+}
+
+.card .front,
+.card .back {
+  border-radius: 5px;
+  background: white;
+  transition: 1s;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.card .card__img {
+  position: relative;
+  width: 100%;
+  height: 200px;
+}
+
+.card .back {
+  transform: rotateY(180deg);
+}
+
+.card .back .card__img-img {
+  transform: rotateY(180deg);
+}
+
+.card .card-description,
+.card .card__categories-description {}
+
+.card .card-description .card__description-en,
+.card .card-description .card__description-ru,
+.card .card__categories-description .card__description-en,
+.card .card__categories-description .card__description-ru {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 22px;
+  font-family: sans-serif;
+}
+
+.card .card-description .img-speaker,
+.card .card__categories-description .img-speaker {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  bottom: 5px;
+  left: 5px;
+  transition: 0.5s;
+}
+
+.card .card-description .button-reverse,
+.card .card__categories-description .button-reverse {
+  transition: 0.5s;
+  background: url("../assets/images/icons/undo.png") no-repeat;
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+}
+
+.card:hover {
+  transform: translate(0px, -5px);
+}
+
+
+@media (max-width: 959px) {
+  .card {
+    width: 31.5%;
+  }
+
+  .card:nth-child(7),
+  .card:nth-child(8) {
+    width: 47.5%;
+    height: 280px;
+  }
+
+  .card:nth-child(7) .card__img,
+  .card:nth-child(8) .card__img {
+    height: 250px;
+  }
+}
+
+@media (max-width: 599px) {
+  .card {
+    width: 48%;
+  }
+}
+
+@media (max-width: 499px) {
+  .content-carts {
+    justify-content: center;
+  }
+
+  .card {
+    width: 400px;
+    height: 350px;
+  }
+
+  .card .card__img {
+    height: 300px;
+  }
+}
