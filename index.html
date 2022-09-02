@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="./styles/style.css">
+  <title>english-for-kids</title>
+  
+  <script defer src="./assets/scripts/data.js"></script>
+  <script defer src="./assets/scripts/script.js"></script>
+  <script defer src="./assets/scripts/pronunciation.js"></script>
+ 
+</head>
+<body>
+  <header class="header">
+    <div class="wrapper">
+      <div class="header-content">
+        <img src="assets/images/avatar.png" alt="Avatar" class="image">
+        <div class="statistics">statistick</div>
+        <div class="description-category"></div>
+
+        <div class="control-buttons">
+          <div class="description">
+            <span>train</span>
+            <input type="checkbox" class="on" data-on="on">
+          </div>
+
+          <div class="start-game hidden">
+            <span class="start-description">start</span>
+            <img data-repeat="repeat" class="repeat-button" src="assets\images\icons\repeat-button.png" alt="">
+          </div>
+
+
+        </div>
+        <div class="header-content__message hidden">пожалуйсто выбирите категорию</div>
+
+      </div>
+    </div>
+
+  </header>
+
+    <div data-overlay="overlay" class="overlay">
+      <ul class="menu">
+        <div id="marker"></div>
+        <li class="menu__item" data-category="categories">main</li>
+        <li class="menu__item" data-category="space">space</li>
+        <li class="menu__item" data-category="food">food</li>
+        <li class="menu__item" data-category="animals">animals</li>
+        <li class="menu__item" data-category="natural">natural</li>
+        <li class="menu__item" data-category="colors">colors</li>
+        <li class="menu__item" data-category="cities">cities</li>
+        <li class="menu__item" data-category="home">home</li>
+        <li class="menu__item" data-category="emotions">emotion</li>
+      </ul>
+    </div>
+
+
+
+  <div class="main">
+    <div class="wrapper">
+      <div class="scale-marks hidden"></div>
+      <div class="content-carts">
+
+      </div>
+    </div>
+  </div>
+
+
+  <div class="win-message">
+    <div class="win-message__text">
+      <span></span>
+      <span></span>
+    </div>
+    <img class="smile-happy hidden" src="assets/images/icons/smile.png" alt="">
+    <img class="smile-cry hidden" src="assets/images/icons/crying.png" alt="">
+  </div>
+
+  <div class="modal">
+   <div class="modal__body">
+     <div class="modal__content">
+      <div class="reset-statistic">reset</div>
+      <div class="close"></div>
+      <div class="content__description"></div>
+      <div class="content__word"></div>
+     </div>
+    </div>
+   </div>
+ </div>
+
+
+
+  <audio id="sound1" src="assets/sounds/1.mp3"></audio>
+  <audio id="sound2" src="assets/sounds/2.mp3"></audio>
+  <audio id="sound3" src="assets/sounds/3.mp3"></audio>
+  <audio id="sound4" src="assets/sounds/4.mp3"></audio>
+  <audio id="sound5" src="assets/sounds/end-game-win.mp3"></audio>
+  <audio id="sound6" src="assets/sounds/end-game-loosers.mp3"></audio>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="link-author">
+        <div class="powered-by">powered by</div>
+        <a href="https://github.com/conservativ007">conservative</a>
+      </div>
+
+      <div class="create-years">2020</div>
+
+
+        <a href="https://rs.school/js/">
+          <div class="logo-course"></div>
+        </a>
+
+    </div>
+  </footer>
+  
+
+</body>
+</html>
