@@ -166,4 +166,15 @@
   .card .card__img {
     height: 300px;
   }
+
+  .card:nth-child(7),
+  .card:nth-child(8) {
+    width: 400px;
+    height: 350px;
+  }
+
+  .card:nth-child(7) .card__img,
+  .card:nth-child(8) .card__img {
+    height: 300px;
+  }
 }

@@ -1,6 +1,5 @@
-// import { pronunciation } from "./assets/scripts/pronunciation.js";
-// import { obj } from "./data.js";
-let path = 'categories';
+export let path = 'categories';
+
 
 let word = '';
 let arrCategory = [];
@@ -9,7 +8,7 @@ let counterShots = -1;
 
 
 init();
-function init() {
+export function init() {
   createCards(obj[path]);
   showDescriptionCategory();
 }
@@ -33,10 +32,10 @@ function addDescription() {
     'card__categories-description' : 'card-description';
 }
 
-function addHidden() {
-  let checked = document.querySelector('.on').checked;
+function addHiddenToCheckbox() {
+  let isChecked = document.querySelector('.train-control').checked;
 
-  if (checked && path != 'categories') {
+  if (isChecked && path != 'categories') {
     return 'hidden';
   } else {
     return '';
@@ -50,7 +49,7 @@ function addCards(item, index) {
         <div dataset.card="card" class="card__img">
           <img class="card__img-img" src="assets/images/${path}/${item}.png">
         </div>
-        <div class="${addDescription()} ${addHidden()}">
+        <div class="${addDescription()} ${addHiddenToCheckbox()}">
           <div class="card__description-en">
             ${item}
           </div>
@@ -80,12 +79,6 @@ function createCards(arr) {
 
 function showDescriptionCategory() {
   document.querySelector('.description-category').innerHTML = `${path != 'categories' ? path : ''}`;
-  // document.querySelector('.description-category').innerHTML = `
-  // <div class="category-name">
-  //   ${path != 'categories' ? path : ''}
-  // </div>
-  // `;
-
 }
 
 
@@ -105,61 +98,18 @@ document.addEventListener('click', (e) => {
 
     // описание категории
     showDescriptionCategory();
-
-    // добавление класса
-    addActive();
-
   }
 });
 
 
-// toggle menu
-// document.addEventListener('click', (e) => {
-//   if (e.target.className == 'image') {
-//     toggleMenu();
-//   }
-// });
-
-document.addEventListener("click", (e) => {
-  if (isOpenMenu(e)) {
-    // console.log(42)
-    toggleMenu();
-  }
-})
-
-function isOpenMenu(e) {
-  if (e.target.className === "hamburger" || e.target.className === "hamburger-child") return true;
-  return false;
+let linksNav = document.querySelectorAll(".menu__item");
+function removeClassToAllMenuElements() {
+  linksNav.forEach(i => i.classList.remove("active"));
 }
 
-function toggleMenu() {
-  document.querySelector('.overlay').classList.toggle('add-width');
+function addActiveClassToMenuElem() {
+  document.querySelector(`[data-category="${path}"]`).classList.add("active");
 }
-
-function removeMenuClass() {
-  document.querySelector('.overlay').classList.remove('add-width');
-}
-
-// добавляет класс active в меню слева
-addActive();
-function addActive() {
-  // удаляем класс active у всех элементов
-  let elems = document.querySelectorAll('.menu__item');
-  elems.forEach(i => i.classList.remove('active'));
-
-  // добавляем класс active
-  let el = document.querySelector(`[data-category="${path}"]`);
-  el.classList.add('active');
-}
-
-
-// если меню открыто закрываем при клике вне меню
-document.addEventListener('click', (e) => {
-  if (e.target.className === "overlay add-width" || e.target.className === "menu") return;
-  if (isOpenMenu(e) === true) return;
-  removeMenuClass();
-});
-
 
 
 // переход по навигационным ссылкам
@@ -167,8 +117,8 @@ document.addEventListener('click', (e) => {
   if (e.target.dataset.category) {
     path = e.target.dataset.category;
     init();
-    addActive();
-    removeMenuClass();
+    removeClassToAllMenuElements();
+    addActiveClassToMenuElem();
   }
 });
 
@@ -200,16 +150,6 @@ function reverseCoup(cardElem) {
     }
   });
 }
-
-// произношение
-// document.addEventListener('click', (e) => {
-//   if (e.target.dataset.speaker) {
-//     let elem = e.target.closest('.front');
-//     let text = elem.lastElementChild.innerHTML;
-
-//     speechEnglish(text);
-//   }
-// });
 
 // нажатие на флажок (checkbox) старта игры
 document.addEventListener('click', (e) => {
@@ -253,8 +193,6 @@ document.addEventListener('click', (e) => {
       // покажем шкалу с будущими звёздочками :)
       document.querySelector('.scale-marks').classList.remove('hidden');
     }
-
-
   }
 });
 
@@ -298,15 +236,6 @@ function reverseRepeat(elem) {
   });
 }
 
-// function speechEnglish(text) {
-//   let synth = window.speechSynthesis;
-//   let message = new SpeechSynthesisUtterance();
-//   message.lang = 'en-US';
-//   message.text = text;
-//   synth.speak(message);
-// }
-
-
 function getChunckArray(arr) {
   return arr.length > 0 ? arr.shift() : '';
 }
@@ -335,8 +264,6 @@ function checkArrayWords() {
   let smileCry = document.querySelector('.smile-cry');
 
   modal.style.display = "block";
-
-
 
   if (counterShots == 7) {
     message.firstElementChild.innerHTML = 'Вы выйграли';
@@ -378,7 +305,7 @@ document.addEventListener('click', (e) => {
   // проверка что кликаем по карте
   if (elem == 'card__img-img' || elem == 'front') {
 
-    let checkBox = document.querySelector('.on').checked;
+    let checkBox = document.querySelector('.train-control').checked;
     let buttonstartGame = document.querySelector('.start-game');
     let boolButtonstartGame = buttonstartGame.classList.contains('start');
 
@@ -418,8 +345,6 @@ document.addEventListener('click', (e) => {
         // счётчик промахов
         getNotHitCounter(word);
       }
-
-
     }
   }
 
@@ -666,7 +591,7 @@ document.addEventListener('click', (e) => {
 
 
 function reloadPage(modal, smile) {
-  document.querySelector('.on').checked = false;
+  document.querySelector('.train-control').checked = false;
 
   document.querySelector('.start-game').classList.toggle('hidden');
   document.querySelector('.start-game').classList.toggle('start');
@@ -682,6 +607,9 @@ function reloadPage(modal, smile) {
 
   document.querySelector('.scale-marks').classList.add('hidden');
   document.querySelector('.scale-marks').innerHTML = '';
+
+  document.querySelectorAll('.menu__item').forEach(i => i.classList.remove("active"));
+  document.querySelector('.menu__item').classList.add("active");
 
   buttonStartModify('', false);
   init();

@@ -24,23 +24,38 @@
   justify-content: space-between;
   align-items: center;
   width: 300px;
-  right: 20px;
+  height: 100%;
 }
 
 .header .train {
-  width: 400px;
+  width: 150px;
   font-size: 20px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   text-transform: capitalize;
+
   display: flex;
+  flex-direction: column;
   justify-content: space-around;
   align-items: center;
 }
 
-.header .train .on {
+.train-description {
+  display: flex;
+  justify-content: space-around;
+}
+
+.train-description__control {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+
+.header .train .train-control {
   position: relative;
-  width: 50px;
-  height: 30px;
+  width: 35px;
+  height: 20px;
   -webkit-appearance: none;
   appearance: none;
   background-color: #c6c6c6;
@@ -51,25 +66,25 @@
   cursor: pointer;
 }
 
-.header .train .on:checked {
+.header .train .train-control:checked {
   background-color: #03a9f4;
 }
 
-.header .train .on:before {
+.header .train .train-control:before {
   content: "";
   position: absolute;
-  width: 30px;
-  height: 30px;
+  width: 20px;
+  height: 20px;
   border-radius: 20px;
   top: 0;
   left: 0;
   background: #dfe6e9;
-  transition: 0.5s;
+  transition: 0.3s;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-.header .train .on:checked:before {
-  left: 22px;
+.header .train .train-control:checked:before {
+  left: 16px;
 }
 
 .header .train .start-game {
@@ -81,7 +96,10 @@
   transition: 1s;
   width: 100px;
   height: 30px;
-  border: 1px solid #00b894;
+  background-color: #03a9f4;
+  color: white;
+  /* border: 2px solid #00b894; */
+  border-radius: 4px;
 }
 
 .header .train .start-game .repeat-button {
@@ -111,8 +129,8 @@
 
 .header .statistics {
   font-size: 20px;
-  padding: 10px;
-  background-color: #0984e3;
+  padding: 7px 10px;
+  background-color: #03a9f4;
   color: white;
   cursor: pointer;
   font-family: sans-serif;
@@ -124,20 +142,12 @@
 .description-category {
   font-size: 30px;
   height: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   color: white;
+  text-align: center;
 }
 
 @media (max-width: 410px) {
   .description-category {
     display: none;
-  }
-}
-
-@media (max-width: 410px) {
-  .header {
-    width: 300px;
   }
 }

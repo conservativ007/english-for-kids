@@ -12,25 +12,32 @@
   <title>english-for-kids</title>
   
   <script defer src="./assets/scripts/data.js"></script>
-  <script defer src="./assets/scripts/script.js"></script>
+  <script type="module" defer src="./assets/scripts/script.js"></script>
   <script defer src="./assets/scripts/pronunciation.js"></script>
+  <script type="module" defer src="./assets/scripts/addActiveClassToMenu.js"></script>
  
 </head>
 <body>
   <div class="wrapper">
     <header class="header">
-      <div class="hamburger"><div class="hamburger-child"></div></div>
+      <div class="hamburger">
+        <div class="hamburger-child__one"></div>
+        <div class="hamburger-child__two"></div>
+        <div class="hamburger-child__three"></div>
+    </div>
 
         <div class="train">
-          <p>тренировка</p>
-          <input type="checkbox" class="on" data-on="on">
-          <div class="start-game hidden">
-            <span class="start-description">start</span>
-            <img data-repeat="repeat" class="repeat-button" src="assets\images\icons\repeat-button.png" alt="">
+          <p class="train-description">тренировка</p>
+          <div class="train-description__control">
+            <input class="train-control" type="checkbox" class="on" data-on="on">
+            <div class="start-game hidden">
+              <span class="start-description">start</span>
+              <img data-repeat="repeat" class="repeat-button" src="assets\images\icons\repeat-button.png" alt="">
+            </div>
           </div>
         </div>
         
-        <div class="statistics">statistics</div>
+        <div class="statistics">%</div>
     </header>
 
     <div data-overlay="overlay" class="overlay">
@@ -48,9 +55,10 @@
       </ul>
     </div>
 
+    
     <p class="description-category"></p>
-
     <div class="main">
+      
       <div class="scale-marks hidden"></div>
       <div class="content-carts"></div>
     </div>

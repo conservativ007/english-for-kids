@@ -9,6 +9,11 @@
   width: 960px;
 }
 
+.main {
+  position: relative;
+  margin-top: 20px;
+}
+
 @media (max-width: 959px) {
   .wrapper {
     width: 600px;
