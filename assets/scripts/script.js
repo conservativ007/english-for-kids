@@ -1,6 +1,5 @@
 export let path = 'categories';
 
-
 let word = '';
 let arrCategory = [];
 let shots = getRandomKeysArray(8);
@@ -162,20 +161,20 @@ document.addEventListener('click', (e) => {
 });
 
 
-// кнопка старта игры
+// start game button
 document.addEventListener('click', (e) => {
 
-  if (e.target.className == 'start-game' || e.target.className == 'start-description') {
+  if (e.target.className == 'start-game' || e.target.className == 'start-game__start') {
 
-    // если мы находимся на главной странице с категориями
+    // if we on the main page with categories
     if (path == 'categories') {
-      let message = document.querySelector('.header-content__message');
-      message.classList.remove('hidden');
+      let message = document.querySelector('.user-message');
+      message.classList.remove('hide');
 
       setTimeout(() => toggleClass(), 2000);
 
       function toggleClass() {
-        message.classList.add('hidden');
+        message.classList.add('hide');
       }
 
     } else {
@@ -184,13 +183,13 @@ document.addEventListener('click', (e) => {
       elem.classList.add('start');
       elem.dataset.start = 'start';
 
-      // получим массив с карточками
+      // get array with cards
       getArrCards();
 
-      // модифицируем кнопку
+      // modify the button
       buttonStartModify(true);
 
-      // покажем шкалу с будущими звёздочками :)
+      // let's show the scale with future stars :)
       document.querySelector('.scale-marks').classList.remove('hidden');
     }
   }
@@ -217,7 +216,7 @@ function buttonStartModify(bool) {
   }
 }
 
-// переворот кнопки старт
+// rotate start button
 document.addEventListener('mousemove', (e) => {
   if (e.target.className == 'repeat-button') {
     let elem = document.querySelector(`.${e.target.className}`);
@@ -227,7 +226,7 @@ document.addEventListener('mousemove', (e) => {
   }
 });
 
-// обратный переворот
+// return rotate start button
 function reverseRepeat(elem) {
   document.addEventListener('mousemove', (e) => {
     if (e.target.className != 'repeat-button') {
@@ -244,7 +243,7 @@ function getChunckArray(arr) {
 function getArrCards() {
   let cards = document.querySelectorAll('.card');
 
-  // получим массив слов из выбранной категории
+  // get an array of words from the selected category
   cards.forEach(i => {
     arrCategory.push(i.querySelector('.card__description-en').innerHTML);
   });
@@ -451,46 +450,12 @@ function getCounterShots(bool) {
   bool ? counterShots++ : counterShots--;
 }
 
-// показать статистику
-document.addEventListener('click', (e) => {
-  if (e.target.className != 'statistics') return;
-  getStatistickTwo();
-  document.querySelector('.modal').classList.add('open');
-});
-
-// закрыть статистику
-document.addEventListener('click', (e) => {
-  if (e.target.className != 'close') return;
-  document.querySelector('.modal').classList.remove('open');
-});
-
-
 // записаить статистику при первичном заходе на страницу
 setStatistick();
 function setStatistick() {
   if (!localStorage.getItem('englishStatistics')) {
     localStorage.setItem('englishStatistics', JSON.stringify(statistics));
   }
-}
-
-// отображение статитики
-getStatistickTwo();
-function getStatistickTwo() {
-  let localStorStatistics = JSON.parse(localStorage.getItem('englishStatistics'));
-
-  let contentDescription = document.querySelector('.content__description');
-  let contentWord = document.querySelector('.content__word');
-
-  let elems = Object.entries(localStorStatistics);
-
-  contentDescription.innerHTML = `
-    ${getContentDescription()}
-  `;
-
-  contentWord.innerHTML = `
-    ${elems.map(getCard).join('')}
-  `;
-
 }
 
 // проверка длинны слова
@@ -556,30 +521,39 @@ function getCard(elem, index) {
 document.addEventListener('click', (e) => {
   if (e.target.dataset.reverse) {
     let parentElem = e.target.closest('.card');
-    let childElem = parentElem.querySelector('.card__description-en').innerHTML;
-    childElem = childElem.trim();
+    let contentOfChildElem = parentElem.querySelector('.card__description-en').innerHTML;
+    contentOfChildElem = contentOfChildElem.trim();
 
     let statisticsTwo = JSON.parse(localStorage.getItem('englishStatistics'));
-    statisticsTwo[childElem].lookedAnswer += 1;
+    console.log(contentOfChildElem)
+
+    statisticsTwo.forEach(card => {
+      if (card.en === contentOfChildElem) card.lookedAnswer += 1;
+    });
     localStorage.setItem('englishStatistics', JSON.stringify(statisticsTwo));
   }
 });
 
 // счётчик попаданий
 function getHitCounter(elem) {
-  let nameItem = elem.trim();
-
+  let contentOfShotHit = elem.trim();
   let statisticsTwo = JSON.parse(localStorage.getItem('englishStatistics'));
-  statisticsTwo[nameItem].guessed += 1;
+
+  statisticsTwo.forEach(card => {
+    if (card.en === contentOfShotHit) card.guessed += 1;
+  });
   localStorage.setItem('englishStatistics', JSON.stringify(statisticsTwo));
 }
 
 // счётчик промахов
 function getNotHitCounter(elem) {
-  let nameItem = elem.trim();
+  let contentOfShotMiss = elem.trim();
 
   let statisticsTwo = JSON.parse(localStorage.getItem('englishStatistics'));
-  statisticsTwo[nameItem].didNotGuess += 1;
+
+  statisticsTwo.forEach(card => {
+    if (card.en === contentOfShotMiss) card.didNotGuess += 1;
+  });
   localStorage.setItem('englishStatistics', JSON.stringify(statisticsTwo));
 }
 

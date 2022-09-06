@@ -9,12 +9,17 @@
   <link rel="stylesheet" href="./styles/style.css">
   <link rel="stylesheet" href="./styles/cards.css">
   <link rel="stylesheet" href="./styles/humburger.css">
+  <link rel="stylesheet" href="./styles/modal.css">
+  <link rel="stylesheet" href="./styles/dropdown.css">
   <title>english-for-kids</title>
   
   <script defer src="./assets/scripts/data.js"></script>
   <script type="module" defer src="./assets/scripts/script.js"></script>
   <script defer src="./assets/scripts/pronunciation.js"></script>
   <script type="module" defer src="./assets/scripts/addActiveClassToMenu.js"></script>
+  <script type="module" defer src="./assets/scripts/modal.js"></script>
+  <script type="module" defer src="./assets/scripts/getStatistic.js"></script>
+  <script type="module" defer src="./assets/scripts/dropdown.js"></script>
  
 </head>
 <body>
@@ -24,20 +29,20 @@
         <div class="hamburger-child__one"></div>
         <div class="hamburger-child__two"></div>
         <div class="hamburger-child__three"></div>
-    </div>
+      </div>
 
-        <div class="train">
-          <p class="train-description">тренировка</p>
-          <div class="train-description__control">
-            <input class="train-control" type="checkbox" class="on" data-on="on">
-            <div class="start-game hidden">
-              <span class="start-description">start</span>
-              <img data-repeat="repeat" class="repeat-button" src="assets\images\icons\repeat-button.png" alt="">
-            </div>
+      <div class="train">
+        <p class="train-description">тренировка</p>
+        <div class="train-description__control">
+          <input class="train-control" type="checkbox" class="on" data-on="on">
+          <div class="start-game hidden">
+            <span class="start-game__start">start</span>
+            <img data-repeat="repeat" class="repeat-button" src="assets\images\icons\repeat-button.png" alt="">
           </div>
         </div>
+      </div>
         
-        <div class="statistics">%</div>
+      <div class="statistics">%</div>
     </header>
 
     <div data-overlay="overlay" class="overlay">
@@ -54,11 +59,9 @@
         <li class="menu__item" data-category="emotions">emotion</li>
       </ul>
     </div>
-
     
     <p class="description-category"></p>
     <div class="main">
-      
       <div class="scale-marks hidden"></div>
       <div class="content-carts"></div>
     </div>
@@ -72,16 +75,30 @@
       <img class="smile-cry hidden" src="assets/images/icons/crying.png" alt="">
     </div>
 
-    <div class="modal">
-      <div class="modal__body">
-        <div class="modal__content">
-          <div class="reset-statistic">reset</div>
-          <div class="close"></div>
-          <div class="content__description"></div>
-          <div class="content__word"></div>
+    <div id="myModal" class="modal">
+
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="modal-header__choice">
+            <div class="dropdown">
+              <input type="text" class="text-box" value="a-z">
+              <div class="option">
+                <div>a-z</div>
+                <div>looked-answer</div>
+                <div>guessed</div>
+                <div>did-not-guessed</div>
+              </div>
+            </div>
+            <p class="arrow-sort hide">&#8595;</p>
+            <p class="arrow-sort show">&#8593;</p>
+            <button>ok</button>
+          </div>
+          
+          <span class="close">&#x2715;</span>
         </div>
-        </div>
+        <div class="modal-body"></div>
       </div>
+    
     </div>
 
     <audio id="sound1" src="assets/sounds/1.mp3"></audio>
@@ -104,7 +121,7 @@
           </a>
       </div>
     </footer>
-  
+    <div class="user-message hide">пожалуйсто выберите категорию</div>
   </div>
 </body>
 </html>

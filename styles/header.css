@@ -30,7 +30,6 @@
 .header .train {
   width: 150px;
   font-size: 20px;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
   text-transform: capitalize;
 
   display: flex;
@@ -91,7 +90,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
   cursor: pointer;
   transition: 1s;
   width: 100px;
@@ -109,16 +107,18 @@
   height: 35px;
 }
 
-.header .header-content__message {
+.user-message {
   position: absolute;
-  top: 0;
-  right: 0;
-  padding: 5px;
+  width: 80%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
   border-radius: 5px;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 12px;
-  background-color: #00b894;
+  font-size: 30px;
+  background-color: #d63031;
   color: white;
+  text-align: center;
 }
 
 .header .image {
@@ -129,11 +129,10 @@
 
 .header .statistics {
   font-size: 20px;
-  padding: 7px 10px;
+  padding: 5px 10px;
   background-color: #03a9f4;
   color: white;
   cursor: pointer;
-  font-family: sans-serif;
   letter-spacing: 1px;
   font-variant: small-caps;
   border-radius: 4px;

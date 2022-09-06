@@ -1,7 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=B612&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=B612&family=Cairo&display=swap');
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+body {
+  /* font-family: 'B612', sans-serif; */
+  font-family: 'Cairo', sans-serif;
 }
 
 .wrapper {
