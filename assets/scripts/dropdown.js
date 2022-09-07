@@ -13,12 +13,4 @@ options.forEach(i => i.addEventListener("click", func));
 
 function func(e) {
   document.querySelector(".text-box").value = e.target.innerHTML;
-  // console.log(e.target.innerHTML)
 }
-// dropDown.addEventListener("click", e => {
-//   let values = "a-z, looked-answer, guessed, did-not-guessed";
-//   if (values.includes(e.target.innerHTML)) {
-//     console.log(e.target.innerHTML)
-//   }
-//   // console.log(e.target.innerHTML)
-// })

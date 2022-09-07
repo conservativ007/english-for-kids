@@ -107,6 +107,10 @@
   height: 35px;
 }
 
+.header .train .start-game .repeat-button:hover {
+  transform: rotate(-90deg);
+}
+
 .user-message {
   position: absolute;
   width: 80%;
@@ -139,10 +143,30 @@
 }
 
 .description-category {
+  position: relative;
   font-size: 30px;
+  width: 220px;
   height: 30px;
   color: white;
-  text-align: center;
+}
+
+.description-category__main {
+  position: absolute;
+  left: 0;
+  top: 0;
+  cursor: pointer;
+}
+
+.description-category__category {
+  position: absolute;
+  left: 135px;
+  top: 0;
+}
+
+.description-category__category.category-active::before {
+  position: absolute;
+  content: "->";
+  left: -50px;
 }
 
 @media (max-width: 410px) {

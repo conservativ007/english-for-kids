@@ -10,6 +10,9 @@ init();
 export function init() {
   createCards(obj[path]);
   showDescriptionCategory();
+  setCurrentCategoryInTheOverlay();
+  removeActiveClassToAllMenuElements();
+  addActiveClassToMenuElem();
 }
 
 
@@ -66,9 +69,7 @@ function addCards(item, index) {
       </div>
      </div>
   `;
-
 }
-
 
 function createCards(arr) {
   let contentCards = document.querySelector('.content-carts');
@@ -77,9 +78,37 @@ function createCards(arr) {
 
 
 function showDescriptionCategory() {
-  document.querySelector('.description-category').innerHTML = `${path != 'categories' ? path : ''}`;
+  let descriptionCategory = document.querySelector('.description-category__category');
+  descriptionCategory.innerHTML = `${path != 'categories' ? path : ""}`;
+  if (path !== "categories") {
+    descriptionCategory.classList.add("category-active");
+  } else {
+    descriptionCategory.classList.remove("category-active");
+  }
 }
 
+// set in overlay by click on the card
+setCurrentCategoryInTheOverlay();
+function setCurrentCategoryInTheOverlay() {
+  let cards = document.querySelector(".content-carts").children;
+  [...cards].forEach(i => i.addEventListener("click", getNameOfCategory));
+
+  function getNameOfCategory(e) {
+    let nameOfCategory = e.currentTarget.querySelector(".card__description-en").innerHTML;
+    nameOfCategory = nameOfCategory.trim();
+
+    removeActiveClassToAllMenuElements();
+    document.querySelectorAll(".menu__item").forEach(i => i.innerHTML === nameOfCategory ? i.classList.add("active") : null);
+  }
+}
+
+// go back to main page by click on the description-category__main
+document.addEventListener("click", (e) => {
+  if (e.target.className !== "description-category__main") return;
+  path = "categories";
+  init();
+  console.log(42)
+})
 
 // отрисовка нужного контента
 document.addEventListener('click', (e) => {
@@ -100,9 +129,8 @@ document.addEventListener('click', (e) => {
   }
 });
 
-
-let linksNav = document.querySelectorAll(".menu__item");
-function removeClassToAllMenuElements() {
+function removeActiveClassToAllMenuElements() {
+  let linksNav = document.querySelectorAll(".menu__item");
   linksNav.forEach(i => i.classList.remove("active"));
 }
 
@@ -110,25 +138,34 @@ function addActiveClassToMenuElem() {
   document.querySelector(`[data-category="${path}"]`).classList.add("active");
 }
 
-
 // переход по навигационным ссылкам
 document.addEventListener('click', (e) => {
   if (e.target.dataset.category) {
     path = e.target.dataset.category;
     init();
-    removeClassToAllMenuElements();
-    addActiveClassToMenuElem();
+    // removeActiveClassToAllMenuElements();
+    // addActiveClassToMenuElem();
+    setCurrentCategoryInTheOverlay();
   }
 });
 
 
-// переворот карточки
+// turn the card
 document.addEventListener('click', (e) => {
   if (e.target.dataset.reverse) {
     let cardElem = e.target.closest('.card');
-    flipCard(cardElem, 360, 180);
 
-    reverseCoup(cardElem);
+    const isMobile = /Mobile|webOS|BlackBerry|IEMobile|MeeGo|mini|Fennec|Windows Phone|Android|iP(ad|od|hone)/i.test(navigator.userAgent);
+
+    if (isMobile === true) {
+      console.log("mobile")
+      flipCard(cardElem, 360, 180);
+      setTimeout(() => flipCard(cardElem, 180, 0), 2000);
+    } else {
+      console.log("desktop")
+      flipCard(cardElem, 360, 180);
+      reverseCoup(cardElem);
+    }
   }
 });
 
@@ -143,8 +180,9 @@ function reverseCoup(cardElem) {
   document.addEventListener('mouseover', (e) => {
 
     let className = e.target.className;
+    // console.log(className)
 
-    if (className == 'content-carts') {
+    if (className !== 'card__img-img') {
       flipCard(cardElem, 180, 0);
     }
   });
@@ -164,7 +202,7 @@ document.addEventListener('click', (e) => {
 // start game button
 document.addEventListener('click', (e) => {
 
-  if (e.target.className == 'start-game' || e.target.className == 'start-game__start') {
+  if (e.target.className == 'start-game__buttons-start' || e.target.className == 'start-game__start') {
 
     // if we on the main page with categories
     if (path == 'categories') {
@@ -214,25 +252,6 @@ function buttonStartModify(bool) {
     elem.style.border = "1px solid silver";
     elem.lastElementChild.style.display = "none";
   }
-}
-
-// rotate start button
-document.addEventListener('mousemove', (e) => {
-  if (e.target.className == 'repeat-button') {
-    let elem = document.querySelector(`.${e.target.className}`);
-    elem.style.transform = 'rotate(-90deg)';
-
-    reverseRepeat(elem);
-  }
-});
-
-// return rotate start button
-function reverseRepeat(elem) {
-  document.addEventListener('mousemove', (e) => {
-    if (e.target.className != 'repeat-button') {
-      elem.style.transform = 'rotate(90deg)';
-    }
-  });
 }
 
 function getChunckArray(arr) {
@@ -294,7 +313,6 @@ function sayWord(bool) {
     word = getChunckArray(arrCategory);
     speechEnglish(word);
   }
-
 }
 
 
@@ -346,7 +364,6 @@ document.addEventListener('click', (e) => {
       }
     }
   }
-
 });
 
 // отрисовка звёздочек (которые заполняют шкалу)
@@ -364,12 +381,10 @@ function scaleMarks(bool) {
 }
 
 function addScaleMarks() {
-
   let elems = document.querySelectorAll('.star');
   if (elems.length > 10) {
     let child = document.querySelector('.star');
     child.parentNode.removeChild(child);
-
   }
 }
 
@@ -400,11 +415,8 @@ function transform3D(card, bool) {
     card.style.transform = `rotate3d(0, 1, 0, 30deg)`;
     setTimeout(() => card.style.transform = `rotate3d(0, 1, 0, -20deg)`, 100);
     setTimeout(() => card.style.transform = `rotate3d(0, 1, 0, 0deg)`, 300);
-
   }
-
 }
-
 
 // наложение картинки на карточку
 function shotImage(front, back) {
@@ -477,46 +489,6 @@ function getPercentageGuessing(a, b) {
   return res.toFixed(0);
 }
 
-function getContentDescription() {
-  return `
-    <div class="description-statistic" style="left: 5px;">
-      <div class="statistic__en" style="left: 5px;">слово</div>
-      <div class="statistic__ru" style="left: 65px;">перевод</div>
-      <div class="statistic__translate" style="left: 75px;">посмотрели перевод</div>
-      <div class="statistic__guessed" style="left: 85px;">угадали</div>
-      <div class="statistic__not-guessed" style="left: 105px;">не угадали</div>
-      <div class="statistic__not-guessed" style="left: 105px;">%</div>
-    </div>
-  `;
-}
-
-function getCard(elem, index) {
-  return `
-  <div class="word">
-    <div class="word__en" style="top: ${(index + 1 % 10) * 15}px; left: 5px;">
-      ${checkLength(elem[1].en)}
-    </div>
-    <div class="word__ru" style="top: ${(index + 1 % 10) * 15}px; left: 70px;">
-      ${checkLength(elem[1].ru)}
-    </div>
-    <div class="word__lookedAnswer" style="top: ${(index + 1 % 10) * 15}px; left: 155px;">
-      ${elem[1].lookedAnswer}
-    </div>
-    <div class="word__guessed" style="top: ${(index + 1 % 10) * 15}px; left: 215px;">
-      ${elem[1].guessed}
-    </div>
-    <div class="word__didNotGuess" style="top: ${(index + 1 % 10) * 15}px; left: 275px;">
-      ${elem[1].didNotGuess}
-    </div>
-    <div class="word__gain" style="top: ${(index + 1 % 10) * 15}px; left: 295px;">
-      ${getPercentageGuessing(elem[1].guessed, elem[1].didNotGuess)}
-    </div>
-
-  </div>
-  `;
-}
-
-
 // счётчик, сколько пользователь переврнул карточку и посмотрел перевод)
 document.addEventListener('click', (e) => {
   if (e.target.dataset.reverse) {
@@ -525,7 +497,6 @@ document.addEventListener('click', (e) => {
     contentOfChildElem = contentOfChildElem.trim();
 
     let statisticsTwo = JSON.parse(localStorage.getItem('englishStatistics'));
-    console.log(contentOfChildElem)
 
     statisticsTwo.forEach(card => {
       if (card.en === contentOfChildElem) card.lookedAnswer += 1;
@@ -585,7 +556,7 @@ function reloadPage(modal, smile) {
   document.querySelectorAll('.menu__item').forEach(i => i.classList.remove("active"));
   document.querySelector('.menu__item').classList.add("active");
 
-  buttonStartModify('', false);
+  buttonStartModify(false);
   init();
 }
 
