@@ -5,68 +5,53 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="./styles/main.css">
-  <link rel="stylesheet" href="./styles/header.css">
   <link rel="stylesheet" href="./styles/style.css">
   <link rel="stylesheet" href="./styles/cards.css">
   <link rel="stylesheet" href="./styles/humburger.css">
   <link rel="stylesheet" href="./styles/modal.css">
   <link rel="stylesheet" href="./styles/dropdown.css">
+  <link rel="stylesheet" href="./styles/navbar.css">
   <title>english-for-kids</title>
   
   <script defer src="./assets/scripts/data.js"></script>
   <script type="module" defer src="./assets/scripts/script.js"></script>
   <script defer src="./assets/scripts/pronunciation.js"></script>
-  <script type="module" defer src="./assets/scripts/addActiveClassToMenu.js"></script>
   <script type="module" defer src="./assets/scripts/modal.js"></script>
   <script type="module" defer src="./assets/scripts/getStatistic.js"></script>
   <script type="module" defer src="./assets/scripts/dropdown.js"></script>
+  <script type="module" defer src="./assets/scripts/navbar.js"></script>
  
 </head>
 <body>
   <div class="wrapper">
-    <header class="header">
-      <div class="hamburger">
-        <div class="hamburger-child__one"></div>
-        <div class="hamburger-child__two"></div>
-        <div class="hamburger-child__three"></div>
-      </div>
-
-      <div class="train">
-        <p class="train-description">тренировка</p>
-        <div class="train-description__control">
-          <input class="train-control" type="checkbox" class="on" data-on="on">
-          <div class="start-game hidden">
-            <span class="start-game__start">start</span>
-            <img data-repeat="repeat" class="repeat-button" src="assets\images\icons\repeat-button.png" alt="">
-          </div>
-        </div>
-      </div>
-        
-      <div class="statistics">%</div>
-    </header>
-
-    <div data-overlay="overlay" class="overlay">
-      <ul class="menu">
-        <div id="marker"></div>
-        <li class="menu__item" data-category="categories">main</li>
-        <li class="menu__item" data-category="space">space</li>
-        <li class="menu__item" data-category="food">food</li>
-        <li class="menu__item" data-category="animals">animals</li>
-        <li class="menu__item" data-category="natural">natural</li>
-        <li class="menu__item" data-category="colors">colors</li>
-        <li class="menu__item" data-category="cities">cities</li>
-        <li class="menu__item" data-category="home">home</li>
-        <li class="menu__item" data-category="emotions">emotion</li>
+    <header>
+      <ul>
+        <li class="active-navigation">main</li>
+        <li>space</li>
+        <li>natural</li>
+        <li>animals</li>
+        <li>home</li>
+        <li>colors</li>
+        <li>emotion</li>
+        <li>food</li>
+        <li>city</li>
+        <li class="slide"></li>
       </ul>
-    </div>
-    
-    <div class="description-category">
-      <p class="description-category__main">main</p>
-      <p class="description-category__category"></p>
-    </div>
+    </header>
     
     <div class="main">
-      <div class="scale-marks hidden"></div>
+      <div class="main-controls">
+        <select name="" id="">
+          <option selected value="normal">normal</option>
+          <option value="hard">hard</option>
+        </select>
+        <button disabled class="main-controls__start-button">train</button>
+        <div class="statistics">статистика</div>
+      </div>
+      <div class="main-showprogress">
+        <img data-repeat="repeat" class="repeat-button" src="assets\images\icons\repeat-button.png" alt="">
+        <div class="scale-marks"></div>
+      </div>
       <div class="content-carts"></div>
     </div>
 

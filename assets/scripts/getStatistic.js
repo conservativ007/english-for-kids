@@ -6,8 +6,6 @@ let body = document.querySelector("body");
 document.querySelector(".statistics").addEventListener("click", () => {
   modal.style.display = "block";
   body.style.overflow = "hidden";
-
-  // order = document.querySelector(".arrow-sort show");
 });
 
 document.querySelector(".close").addEventListener("click", () => {

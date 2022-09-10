@@ -1,7 +1,7 @@
 let obj = {
   'categories': [
     'space', 'natural', 'animals', 'home',
-    'colors', 'food', 'cities', 'emotions',
+    'colors', 'food', 'city', 'emotion',
   ],
 
   'animals': [
@@ -44,11 +44,11 @@ let obj = {
     'чёрный', 'синий', 'зелёный', 'оранжевый', 'розовый', 'красный', 'фиолетовый', 'жёлтый'
   ],
 
-  'cities': [
+  'city': [
     'banking', 'building', 'bus', 'park', 'road', 'taxi', 'traffic-light', 'tram'
   ],
 
-  'citiesRu': [
+  'cityRu': [
     'банк', 'здание', 'автобус', 'парк', 'дорога', 'такси', 'светофор', 'трамвай'
   ],
 
@@ -60,11 +60,11 @@ let obj = {
     'кресло', 'умывальник', 'ванна', 'дверь', 'зеркало', 'туалет', 'телевизор', 'окно'
   ],
 
-  'emotions': [
+  'emotion': [
     'angry', 'confusion', 'cry', 'friendship', 'happy', 'love', 'thinking', 'tired'
   ],
 
-  'emotionsRu': [
+  'emotionRu': [
     'злость', 'спутанность', 'плакать', 'дружба', 'счастье', 'любовь', 'мышление', 'усталость'
   ],
 };

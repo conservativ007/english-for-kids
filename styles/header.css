@@ -100,14 +100,14 @@
   border-radius: 4px;
 }
 
-.header .train .start-game .repeat-button {
+.main .repeat-button {
   display: none;
   transition: 0.5s;
   width: 35px;
   height: 35px;
 }
 
-.header .train .start-game .repeat-button:hover {
+.main .repeat-button:hover {
   transform: rotate(-90deg);
 }
 
@@ -167,10 +167,4 @@
   position: absolute;
   content: "->";
   left: -50px;
-}
-
-@media (max-width: 410px) {
-  .description-category {
-    display: none;
-  }
 }

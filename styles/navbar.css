@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=B612&display=swap');
+
+header {
+  margin: 0 auto;
+  margin-top: 50px;
+
+  display: flex;
+  justify-content: center;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  background-color: black;
+  border-radius: 30px;
+  overflow: hidden;
+  box-shadow: 0 0 0 5px #333;
+  position: relative;
+}
+
+ul li {
+  list-style: none;
+  width: 66px;
+  padding: 20px 10px;
+  color: white;
+  transition: .5s;
+
+  text-align: center;
+  cursor: pointer;
+}
+
+.slide {
+  position: absolute;
+  width: 66px;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: white;
+  transition: .5s;
+  opacity: 0;
+}
+
+ul li.active-navigation {
+  color: #262626;
+  z-index: 1;
+}
+
+ul li:nth-child(1).active-navigation~.slide {
+  left: 0;
+  opacity: 1;
+}
+
+ul li:nth-child(2).active-navigation~.slide {
+  left: 66px;
+  opacity: 1;
+}
+
+ul li:nth-child(3).active-navigation~.slide {
+  left: 132px;
+  opacity: 1;
+}
+
+ul li:nth-child(4).active-navigation~.slide {
+  left: 198px;
+  opacity: 1;
+}
+
+ul li:nth-child(5).active-navigation~.slide {
+  left: 264px;
+  opacity: 1;
+}
+
+ul li:nth-child(6).active-navigation~.slide {
+  left: 330px;
+  opacity: 1;
+}
+
+ul li:nth-child(7).active-navigation~.slide {
+  left: 396px;
+  opacity: 1;
+}
+
+ul li:nth-child(8).active-navigation~.slide {
+  left: 462px;
+  opacity: 1;
+}
+
+ul li:nth-child(9).active-navigation~.slide {
+  left: 528px;
+  opacity: 1;
+}

@@ -1,18 +1,21 @@
+import { changeStartGameButton, setActiveClassToNavbar, setNavbarToDefaultCategory } from "./navbar.js";
+
 export let path = 'categories';
 
 let word = '';
 let arrCategory = [];
 let shots = getRandomKeysArray(8);
 let counterShots = -1;
+let startGame = false;
+
+export function setPath(name) {
+  path = name;
+}
 
 
 init();
 export function init() {
   createCards(obj[path]);
-  showDescriptionCategory();
-  setCurrentCategoryInTheOverlay();
-  removeActiveClassToAllMenuElements();
-  addActiveClassToMenuElem();
 }
 
 
@@ -35,14 +38,13 @@ function addDescription() {
 }
 
 function addHiddenToCheckbox() {
-  let isChecked = document.querySelector('.train-control').checked;
-
-  if (isChecked && path != 'categories') {
+  if (startGame === true && path != 'categories') {
     return 'hidden';
   } else {
     return '';
   }
 }
+
 
 function addCards(item, index) {
   return `
@@ -76,40 +78,6 @@ function createCards(arr) {
   contentCards.innerHTML = `${arr.map(addCards).join('')}`;
 }
 
-
-function showDescriptionCategory() {
-  let descriptionCategory = document.querySelector('.description-category__category');
-  descriptionCategory.innerHTML = `${path != 'categories' ? path : ""}`;
-  if (path !== "categories") {
-    descriptionCategory.classList.add("category-active");
-  } else {
-    descriptionCategory.classList.remove("category-active");
-  }
-}
-
-// set in overlay by click on the card
-setCurrentCategoryInTheOverlay();
-function setCurrentCategoryInTheOverlay() {
-  let cards = document.querySelector(".content-carts").children;
-  [...cards].forEach(i => i.addEventListener("click", getNameOfCategory));
-
-  function getNameOfCategory(e) {
-    let nameOfCategory = e.currentTarget.querySelector(".card__description-en").innerHTML;
-    nameOfCategory = nameOfCategory.trim();
-
-    removeActiveClassToAllMenuElements();
-    document.querySelectorAll(".menu__item").forEach(i => i.innerHTML === nameOfCategory ? i.classList.add("active") : null);
-  }
-}
-
-// go back to main page by click on the description-category__main
-document.addEventListener("click", (e) => {
-  if (e.target.className !== "description-category__main") return;
-  path = "categories";
-  init();
-  console.log(42)
-})
-
 // отрисовка нужного контента
 document.addEventListener('click', (e) => {
   let elem = e.target.closest('.card');
@@ -118,33 +86,19 @@ document.addEventListener('click', (e) => {
   if (elem.dataset.action) {
 
     path = elem.dataset.action;
-    window.location.href = `#${path}`;
 
     if (path) {
-      createCards(obj[path]);
+      init();
+      setActiveClassToNavbar(path);
     }
-
-    // описание категории
-    showDescriptionCategory();
   }
 });
-
-function removeActiveClassToAllMenuElements() {
-  let linksNav = document.querySelectorAll(".menu__item");
-  linksNav.forEach(i => i.classList.remove("active"));
-}
-
-function addActiveClassToMenuElem() {
-  document.querySelector(`[data-category="${path}"]`).classList.add("active");
-}
 
 // переход по навигационным ссылкам
 document.addEventListener('click', (e) => {
   if (e.target.dataset.category) {
     path = e.target.dataset.category;
     init();
-    // removeActiveClassToAllMenuElements();
-    // addActiveClassToMenuElem();
     setCurrentCategoryInTheOverlay();
   }
 });
@@ -180,79 +134,12 @@ function reverseCoup(cardElem) {
   document.addEventListener('mouseover', (e) => {
 
     let className = e.target.className;
-    // console.log(className)
-
     if (className !== 'card__img-img') {
       flipCard(cardElem, 180, 0);
     }
   });
 }
 
-// нажатие на флажок (checkbox) старта игры
-document.addEventListener('click', (e) => {
-  if (e.target.dataset.on) {
-    document.querySelector('.start-game').classList.toggle('hidden');
-
-    let cardDescription = document.querySelectorAll('.card-description');
-    cardDescription.forEach(i => i.classList.toggle('hidden'));
-  }
-});
-
-
-// start game button
-document.addEventListener('click', (e) => {
-
-  if (e.target.className == 'start-game__buttons-start' || e.target.className == 'start-game__start') {
-
-    // if we on the main page with categories
-    if (path == 'categories') {
-      let message = document.querySelector('.user-message');
-      message.classList.remove('hide');
-
-      setTimeout(() => toggleClass(), 2000);
-
-      function toggleClass() {
-        message.classList.add('hide');
-      }
-
-    } else {
-
-      let elem = document.querySelector('.start-game');
-      elem.classList.add('start');
-      elem.dataset.start = 'start';
-
-      // get array with cards
-      getArrCards();
-
-      // modify the button
-      buttonStartModify(true);
-
-      // let's show the scale with future stars :)
-      document.querySelector('.scale-marks').classList.remove('hidden');
-    }
-  }
-});
-
-
-function buttonStartModify(bool) {
-  let elem = document.querySelector('.start-game');
-
-  if (bool) {
-    elem.firstElementChild.style.display = "none";
-    elem.style.width = "40px";
-    elem.style.height = "40px";
-    elem.style.border = "none";
-    elem.lastElementChild.style.display = "block";
-
-  } else {
-
-    elem.firstElementChild.style.display = "block";
-    elem.style.width = "100px";
-    elem.style.height = "40px";
-    elem.style.border = "1px solid silver";
-    elem.lastElementChild.style.display = "none";
-  }
-}
 
 function getChunckArray(arr) {
   return arr.length > 0 ? arr.shift() : '';
@@ -315,54 +202,61 @@ function sayWord(bool) {
   }
 }
 
+// function setDisplayNoneToElement(element) {
+//   document.querySelector(`.${element}`).
+// }
 
+// start game
+document.addEventListener("click", e => {
+  if (e.target.className !== "main-controls__start-button") return;
+  startGame = true;
+
+  let mainControls = document.querySelector(".main-controls");
+  let mainShowprogress = document.querySelector(".main-showprogress");
+
+  mainControls.style.display = "none";
+  mainShowprogress.style.display = "flex";
+
+  getArrCards();
+  init();
+});
+
+// this check user answer
 document.addEventListener('click', (e) => {
-  let elem = e.target.className;
+  if (e.target.closest('.card') === null) return;
+  changeStartGameButton(false);
+  if (startGame === false) return;
 
-  // проверка что кликаем по карте
-  if (elem == 'card__img-img' || elem == 'front') {
+  // получаем текст карточки по которой нажали
+  let cardElemText = e.target.closest('.front').lastElementChild.firstElementChild.innerHTML;
 
-    let checkBox = document.querySelector('.train-control').checked;
-    let buttonstartGame = document.querySelector('.start-game');
-    let boolButtonstartGame = buttonstartGame.classList.contains('start');
+  // блоки в которых находятся img (2 стороны)
+  let cardFrontImg = e.target.closest('.front').firstElementChild;
+  let cardBackImg = e.target.closest('.card').lastElementChild.firstElementChild.firstElementChild;
 
-    // что флажёк включён и у кнопки есть класс (start)
-    if (checkBox && boolButtonstartGame) {
+  let card = e.target.closest('.card');
 
-      // получаем текст карточки по которой нажали
-      let cardElemText = e.target.closest('.front').lastElementChild.firstElementChild.innerHTML;
+  if (cardElemText == word) {
+    setTimeout(() => sayWord(), 1000);
+    shotImage(cardFrontImg, cardBackImg);
+    transform3D(card, true);
+    shotAudio(true);
+    getCounterShots(true);
+    scaleMarks(true);
 
-      // блоки в которых находятся img (2 стороны)
-      let cardFrontImg = e.target.closest('.front').firstElementChild;
-      let cardBackImg = e.target.closest('.card').lastElementChild.firstElementChild.firstElementChild;
+    // счётчик попаданий
+    getHitCounter(word);
+    checkArrayWords();
+  }
 
-      let card = e.target.closest('.card');
+  else {
+    shotAudio(false);
+    transform3D(card, false);
+    getCounterShots(false);
+    scaleMarks(false);
 
-      if (cardElemText == word) {
-
-        setTimeout(() => sayWord(), 1000);
-        shotImage(cardFrontImg, cardBackImg);
-        transform3D(card, true);
-        shotAudio(true);
-        getCounterShots(true);
-        scaleMarks(true);
-
-        // счётчик попаданий
-        getHitCounter(word);
-
-        checkArrayWords();
-      }
-
-      else {
-        shotAudio(false);
-        transform3D(card, false);
-        getCounterShots(false);
-        scaleMarks(false);
-
-        // счётчик промахов
-        getNotHitCounter(word);
-      }
-    }
+    // счётчик промахов
+    getNotHitCounter(word);
   }
 });
 
@@ -394,10 +288,8 @@ document.addEventListener('click', (e) => {
   if (e.target.dataset.start || e.target.dataset.repeat) {
     count++
     if (count <= 1) return;
-
     sayWord(true);
   }
-
 });
 
 // трансформация карточек при игре
@@ -470,14 +362,6 @@ function setStatistick() {
   }
 }
 
-// проверка длинны слова
-function checkLength(elem) {
-  if (elem.length > 11) {
-    return elem.slice(0, 3) + ' - ' + elem.slice(-2);
-  }
-  return elem;
-}
-
 // высчитать процент правильных ответов
 function getPercentageGuessing(a, b) {
   let res = (a / (a + b)) * 100;
@@ -536,11 +420,12 @@ document.addEventListener('click', (e) => {
 
 
 function reloadPage(modal, smile) {
-  document.querySelector('.train-control').checked = false;
+  document.querySelector(".main-controls__start-button").disabled = true;
+  document.querySelector(".main-controls").style.display = "flex";
+  document.querySelector(".main-showprogress").style.display = "none";
+  document.querySelector('.scale-marks').innerHTML = '';
 
-  document.querySelector('.start-game').classList.toggle('hidden');
-  document.querySelector('.start-game').classList.toggle('start');
-
+  startGame = false;
   path = 'categories';
   word = '';
   arrCategory = [];
@@ -550,13 +435,7 @@ function reloadPage(modal, smile) {
   modal.style.display = "none";
   smile.classList.add('hidden');
 
-  document.querySelector('.scale-marks').classList.add('hidden');
-  document.querySelector('.scale-marks').innerHTML = '';
-
-  document.querySelectorAll('.menu__item').forEach(i => i.classList.remove("active"));
-  document.querySelector('.menu__item').classList.add("active");
-
-  buttonStartModify(false);
+  setNavbarToDefaultCategory();
   init();
 }
 
