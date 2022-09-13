@@ -1,12 +1,14 @@
-import { changeStartGameButton, setActiveClassToNavbar, setNavbarToDefaultCategory } from "./navbar.js";
+import { setActiveClassToNavbar, setNavbarToDefaultCategory } from "./navbar.js";
 
 export let path = 'categories';
+export let startGame = false;
+export let word = '';
+export let shots = getRandomKeysArray(8);
+export let counterShots = -1;
 
-let word = '';
 let arrCategory = [];
-let shots = getRandomKeysArray(8);
-let counterShots = -1;
-let startGame = false;
+
+let difficulty = "normal";
 
 export function setPath(name) {
   path = name;
@@ -16,6 +18,10 @@ export function setPath(name) {
 init();
 export function init() {
   createCards(obj[path]);
+}
+
+export function setConterShots(bool) {
+  bool === true ? counterShots += 1 : counterShots -= 1;
 }
 
 
@@ -160,7 +166,7 @@ function getArrCards() {
 }
 
 // checkArrayWords();
-function checkArrayWords() {
+export function checkArrayWords() {
   if (arrCategory.length != 0) return;
 
   let modal = document.querySelector('.win-message');
@@ -193,7 +199,7 @@ function clearPage() {
   elems.forEach(i => i.classList.add('hidden'));
 }
 
-function sayWord(bool) {
+export function sayWord(bool) {
   if (bool) {
     speechEnglish(word);
   } else {
@@ -201,10 +207,6 @@ function sayWord(bool) {
     speechEnglish(word);
   }
 }
-
-// function setDisplayNoneToElement(element) {
-//   document.querySelector(`.${element}`).
-// }
 
 // start game
 document.addEventListener("click", e => {
@@ -221,67 +223,6 @@ document.addEventListener("click", e => {
   init();
 });
 
-// this check user answer
-document.addEventListener('click', (e) => {
-  if (e.target.closest('.card') === null) return;
-  changeStartGameButton(false);
-  if (startGame === false) return;
-
-  // получаем текст карточки по которой нажали
-  let cardElemText = e.target.closest('.front').lastElementChild.firstElementChild.innerHTML;
-
-  // блоки в которых находятся img (2 стороны)
-  let cardFrontImg = e.target.closest('.front').firstElementChild;
-  let cardBackImg = e.target.closest('.card').lastElementChild.firstElementChild.firstElementChild;
-
-  let card = e.target.closest('.card');
-
-  if (cardElemText == word) {
-    setTimeout(() => sayWord(), 1000);
-    shotImage(cardFrontImg, cardBackImg);
-    transform3D(card, true);
-    shotAudio(true);
-    getCounterShots(true);
-    scaleMarks(true);
-
-    // счётчик попаданий
-    getHitCounter(word);
-    checkArrayWords();
-  }
-
-  else {
-    shotAudio(false);
-    transform3D(card, false);
-    getCounterShots(false);
-    scaleMarks(false);
-
-    // счётчик промахов
-    getNotHitCounter(word);
-  }
-});
-
-// отрисовка звёздочек (которые заполняют шкалу)
-function scaleMarks(bool) {
-  let elem = document.querySelector('.scale-marks');
-
-  let img = document.createElement('img');
-  img.src = `assets/images/icons/${bool ? 'star-true' : 'star-false'}.png`;
-  img.classList.add('star');
-  img.style.width = "30px";
-
-  elem.append(img);
-
-  addScaleMarks(elem);
-}
-
-function addScaleMarks() {
-  let elems = document.querySelectorAll('.star');
-  if (elems.length > 10) {
-    let child = document.querySelector('.star');
-    child.parentNode.removeChild(child);
-  }
-}
-
 let count = 0;
 // повторное нажатие на кнопку в режиме игры
 document.addEventListener('click', (e) => {
@@ -291,49 +232,6 @@ document.addEventListener('click', (e) => {
     sayWord(true);
   }
 });
-
-// трансформация карточек при игре
-function transform3D(card, bool) {
-  if (bool) {
-    let rand1 = randomInteger(30, 100);
-    let rand2 = randomInteger(270, 330);
-    let rand = randomInteger(0, 1);
-
-    rand == 0 ?
-      card.style.transform = `rotate3d(1, .5, 1, ${rand1}deg)` :
-      card.style.transform = `rotate3d(1, .5, 1, ${rand2}deg)`;
-
-  } else {
-    card.style.transform = `rotate3d(0, 1, 0, 30deg)`;
-    setTimeout(() => card.style.transform = `rotate3d(0, 1, 0, -20deg)`, 100);
-    setTimeout(() => card.style.transform = `rotate3d(0, 1, 0, 0deg)`, 300);
-  }
-}
-
-// наложение картинки на карточку
-function shotImage(front, back) {
-  let chunckShots = shots.shift();
-
-  let newImg = document.createElement('img');
-  newImg.style.width = '200px';
-  newImg.style.height = '200px';
-  newImg.style.position = 'absolute';
-  newImg.style.zIndex = 1;
-  newImg.src = `assets/images/shots/${chunckShots + 1}.png`;
-
-  front.append(newImg);
-  back.src = `assets/images/shots/${chunckShots + 1}.png`;
-}
-
-// звук)
-function shotAudio(bool) {
-  let randSound, shotSound;
-
-  randSound = bool ? randomInteger(1, 2) : randomInteger(3, 4);
-
-  shotSound = document.querySelector(`#sound${randSound}`);
-  shotSound.play();
-}
 
 // звук в конце игры
 function endGameSound(act) {
@@ -347,11 +245,6 @@ function endGameSound(act) {
   }
 
   endGameSound.play();
-}
-
-// щётчик выстрелов
-function getCounterShots(bool) {
-  bool ? counterShots++ : counterShots--;
 }
 
 // записаить статистику при первичном заходе на страницу
@@ -389,29 +282,6 @@ document.addEventListener('click', (e) => {
   }
 });
 
-// счётчик попаданий
-function getHitCounter(elem) {
-  let contentOfShotHit = elem.trim();
-  let statisticsTwo = JSON.parse(localStorage.getItem('englishStatistics'));
-
-  statisticsTwo.forEach(card => {
-    if (card.en === contentOfShotHit) card.guessed += 1;
-  });
-  localStorage.setItem('englishStatistics', JSON.stringify(statisticsTwo));
-}
-
-// счётчик промахов
-function getNotHitCounter(elem) {
-  let contentOfShotMiss = elem.trim();
-
-  let statisticsTwo = JSON.parse(localStorage.getItem('englishStatistics'));
-
-  statisticsTwo.forEach(card => {
-    if (card.en === contentOfShotMiss) card.didNotGuess += 1;
-  });
-  localStorage.setItem('englishStatistics', JSON.stringify(statisticsTwo));
-}
-
 // сброс статистики
 document.addEventListener('click', (e) => {
   if (e.target.className != 'reset-statistic') return;
@@ -444,9 +314,4 @@ function getRandomKeysArray(num) {
     .sort(() => Math.random() - 0.5);
 
   return elems;
-}
-
-function randomInteger(min, max) {
-  let rand = min + Math.random() * (max + 1 - min);
-  return Math.floor(rand);
 }
