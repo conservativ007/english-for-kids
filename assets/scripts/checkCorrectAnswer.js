@@ -18,28 +18,28 @@ document.addEventListener('click', (e) => {
   let card = e.target.closest('.card');
 
   if (cardElemText == word) {
-    setTimeout(() => sayWord(), 1000);
-    shotImage(cardFrontImg, cardBackImg);
-    transform3D(card, true);
-    shotAudio(true);
-    getCounterShots(true);
-    scaleMarks(true);
-
-    // счётчик попаданий
-    getHitCounter(word);
-    checkArrayWords();
-  }
-
-  else {
-    shotAudio(false);
-    transform3D(card, false);
-    getCounterShots(false);
-    scaleMarks(false);
-
-    // счётчик промахов
-    getNotHitCounter(word);
+    moveToCorrectAnswer(true, cardFrontImg, cardBackImg, card);
+  } else {
+    moveToCorrectAnswer(false, cardFrontImg, cardBackImg, card);
   }
 });
+
+function moveToCorrectAnswer(bool, cardFrontImg, cardBackImg, card) {
+  if (bool === true) {
+    setTimeout(() => sayWord(), 1000);
+    shotImage(cardFrontImg, cardBackImg);
+    // hit shot counter 
+    setHitCounter(true, word);
+  } else {
+    setHitCounter(false, word);
+  }
+
+  shotAudio(bool);
+  transform3D(card, bool);
+  getCounterShots(bool);
+  scaleMarks(bool);
+  checkArrayWords();
+}
 
 // наложение картинки на карточку
 function shotImage(front, back) {
@@ -112,26 +112,25 @@ function addScaleMarks() {
   }
 }
 
-// счётчик попаданий
-function getHitCounter(elem) {
+function setHitCounter(bool, elem) {
+
   let contentOfShotHit = elem.trim();
-  let statisticsTwo = JSON.parse(localStorage.getItem('englishStatistics'));
-
-  statisticsTwo.forEach(card => {
-    if (card.en === contentOfShotHit) card.guessed += 1;
-  });
-  localStorage.setItem('englishStatistics', JSON.stringify(statisticsTwo));
-}
-
-// счётчик промахов
-function getNotHitCounter(elem) {
   let contentOfShotMiss = elem.trim();
-
   let statisticsTwo = JSON.parse(localStorage.getItem('englishStatistics'));
 
-  statisticsTwo.forEach(card => {
-    if (card.en === contentOfShotMiss) card.didNotGuess += 1;
-  });
+  if (bool === true) {
+    console.log(bool, contentOfShotMiss)
+    statisticsTwo.forEach(card => {
+      if (card.en === contentOfShotHit) card.guessed += 1;
+    });
+  }
+
+  if (bool === false) {
+    console.log(bool, contentOfShotMiss)
+    statisticsTwo.forEach(card => {
+      if (card.en === contentOfShotMiss) card.didNotGuess += 1;
+    });
+  }
   localStorage.setItem('englishStatistics', JSON.stringify(statisticsTwo));
 }
 

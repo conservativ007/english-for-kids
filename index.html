@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="./styles/modal.css">
   <link rel="stylesheet" href="./styles/dropdown.css">
   <link rel="stylesheet" href="./styles/navbar.css">
+  <link rel="stylesheet" href="./styles/action/perspective-page.css">
   <title>english-for-kids</title>
   
   <script defer src="./assets/scripts/data.js"></script>
@@ -21,97 +22,101 @@
   <script type="module" defer src="./assets/scripts/dropdown.js"></script>
   <script type="module" defer src="./assets/scripts/navbar.js"></script>
   <script type="module" defer src="./assets/scripts/checkCorrectAnswer.js"></script>
+  <script type="module" defer src="./assets/scripts/shoter/shoter.js"></script>
  
 </head>
 <body>
-  <div class="wrapper">
-    <header>
-      <ul>
-        <li class="active-navigation">main</li>
-        <li>space</li>
-        <li>natural</li>
-        <li>animals</li>
-        <li>home</li>
-        <li>colors</li>
-        <li>emotion</li>
-        <li>food</li>
-        <li>city</li>
-        <li class="slide"></li>
-      </ul>
-    </header>
-    
-    <div class="main">
-      <div class="main-controls">
-        <select name="" id="">
-          <option selected value="normal">normal</option>
-          <option value="hard">hard</option>
-        </select>
-        <button disabled class="main-controls__start-button">train</button>
-        <div class="statistics">статистика</div>
+  <div class="perspective">
+    <div class="wrapper">
+      <header>
+        <ul>
+          <li class="active-navigation">main</li>
+          <li>space</li>
+          <li>natural</li>
+          <li>animals</li>
+          <li>home</li>
+          <li>colors</li>
+          <li>emotion</li>
+          <li>food</li>
+          <li>city</li>
+          <li class="slide"></li>
+        </ul>
+      </header>
+      
+      <div class="main">
+        <button>go</button>
+        <div class="main-controls">
+          <select name="" id="">
+            <option selected value="normal">normal</option>
+            <option value="hard">hard</option>
+          </select>
+          <button disabled class="main-controls__start-button">train</button>
+          <div class="statistics">статистика</div>
+        </div>
+        <div class="main-showprogress">
+          <img data-repeat="repeat" class="repeat-button" src="assets\images\icons\repeat-button.png" alt="">
+          <div class="scale-marks"></div>
+        </div>
+        <div class="content-carts"></div>
       </div>
-      <div class="main-showprogress">
-        <img data-repeat="repeat" class="repeat-button" src="assets\images\icons\repeat-button.png" alt="">
-        <div class="scale-marks"></div>
+
+      <div class="win-message">
+        <div class="win-message__text">
+          <span></span>
+          <span></span>
+        </div>
+        <img class="smile-happy hidden" src="assets/images/icons/smile.png" alt="">
+        <img class="smile-cry hidden" src="assets/images/icons/crying.png" alt="">
       </div>
-      <div class="content-carts"></div>
-    </div>
 
-    <div class="win-message">
-      <div class="win-message__text">
-        <span></span>
-        <span></span>
-      </div>
-      <img class="smile-happy hidden" src="assets/images/icons/smile.png" alt="">
-      <img class="smile-cry hidden" src="assets/images/icons/crying.png" alt="">
-    </div>
+      <div id="myModal" class="modal">
 
-    <div id="myModal" class="modal">
-
-      <div class="modal-content">
-        <div class="modal-header">
-          <div class="modal-header__choice">
-            <div class="dropdown">
-              <input type="text" class="text-box" value="a-z">
-              <div class="option">
-                <div>a-z</div>
-                <div>looked-answer</div>
-                <div>guessed</div>
-                <div>did-not-guessed</div>
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="modal-header__choice">
+              <div class="dropdown">
+                <input type="text" class="text-box" value="a-z">
+                <div class="option">
+                  <div>a-z</div>
+                  <div>looked-answer</div>
+                  <div>guessed</div>
+                  <div>did-not-guessed</div>
+                </div>
               </div>
+              <p class="arrow-sort hide">&#8595;</p>
+              <p class="arrow-sort show">&#8593;</p>
+              <button>ok</button>
             </div>
-            <p class="arrow-sort hide">&#8595;</p>
-            <p class="arrow-sort show">&#8593;</p>
-            <button>ok</button>
+            
+            <span class="close">&#x2715;</span>
           </div>
-          
-          <span class="close">&#x2715;</span>
+          <div class="modal-body"></div>
         </div>
-        <div class="modal-body"></div>
+      
       </div>
-    
+
+      <audio id="sound1" src="assets/sounds/1.mp3"></audio>
+      <audio id="sound2" src="assets/sounds/2.mp3"></audio>
+      <audio id="sound3" src="assets/sounds/3.mp3"></audio>
+      <audio id="sound4" src="assets/sounds/4.mp3"></audio>
+      <audio id="sound5" src="assets/sounds/end-game-win.mp3"></audio>
+      <audio id="sound6" src="assets/sounds/end-game-loosers.mp3"></audio>
+
+      <footer class="footer">
+        <div class="footer-content">
+          <div class="link-author">
+            <div class="powered-by">powered by</div>
+            <a href="https://github.com/conservativ007">conservative</a>
+          </div>
+
+          <div class="create-years">2020</div>
+            <a href="https://rs.school/js/">
+              <div class="logo-course"></div>
+            </a>
+        </div>
+      </footer>
+      <div class="user-message hide">пожалуйсто выберите категорию</div>
     </div>
-
-    <audio id="sound1" src="assets/sounds/1.mp3"></audio>
-    <audio id="sound2" src="assets/sounds/2.mp3"></audio>
-    <audio id="sound3" src="assets/sounds/3.mp3"></audio>
-    <audio id="sound4" src="assets/sounds/4.mp3"></audio>
-    <audio id="sound5" src="assets/sounds/end-game-win.mp3"></audio>
-    <audio id="sound6" src="assets/sounds/end-game-loosers.mp3"></audio>
-
-    <footer class="footer">
-      <div class="footer-content">
-        <div class="link-author">
-          <div class="powered-by">powered by</div>
-          <a href="https://github.com/conservativ007">conservative</a>
-        </div>
-
-        <div class="create-years">2020</div>
-          <a href="https://rs.school/js/">
-            <div class="logo-course"></div>
-          </a>
-      </div>
-    </footer>
-    <div class="user-message hide">пожалуйсто выберите категорию</div>
   </div>
 </body>
 </html>
