@@ -1,4 +1,4 @@
-let obj = {
+export let obj = {
   'categories': [
     'space', 'natural', 'animals', 'home',
     'colors', 'food', 'city', 'emotion',
@@ -69,7 +69,7 @@ let obj = {
   ],
 };
 
-let statistics = [
+export let statistics = [
   {
     en: 'fox',
     ru: 'лиса',

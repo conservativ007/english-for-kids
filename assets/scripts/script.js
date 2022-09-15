@@ -1,4 +1,5 @@
 import { setActiveClassToNavbar, setNavbarToDefaultCategory } from "./navbar.js";
+import { obj, statistics } from "./data.js";
 
 export let path = 'categories';
 export let startGame = false;
