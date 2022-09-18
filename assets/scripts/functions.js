@@ -1,4 +1,6 @@
 import { statistics } from "./data.js";
+import { addEventsToNavbar, setNavbarToDefaultCategory } from "./navbar.js";
+import { init, reloadPage, setPath } from "./script.js";
 
 export function getRandomInteger(min, max) {
   let rand = min + Math.random() * (max + 1 - min);
@@ -58,22 +60,22 @@ export function newCreateAudio(src = "", bool = false) {
   if (bool === true) audioObj.pause();
 }
 
-export function createAudio(phrase, num, stopPlayingAudio = false) {
+// export function createAudio(phrase, num, stopPlayingAudio = false) {
 
-  let elemOfAudio = document.createElement("AUDIO");
+//   let elemOfAudio = document.createElement("AUDIO");
 
-  if (phrase === "you-are-not-prepared") {
-    elemOfAudio.src = `assets/sounds/you-are-not-prepared.mp3`;
-  }
-  else if (phrase === "shot") {
-    elemOfAudio.src = `assets/sounds/${num % 2 === 0 ? 1 : 2}.mp3`;
-  }
-  else if (phrase === "clock_ticking") {
-    elemOfAudio.src = `assets/sounds/alarm_clock_ticking.mp3`;
+//   if (phrase === "you-are-not-prepared") {
+//     elemOfAudio.src = `assets/sounds/you-are-not-prepared.mp3`;
+//   }
+//   else if (phrase === "shot") {
+//     elemOfAudio.src = `assets/sounds/${num % 2 === 0 ? 1 : 2}.mp3`;
+//   }
+//   else if (phrase === "clock_ticking") {
+//     elemOfAudio.src = `assets/sounds/alarm_clock_ticking.mp3`;
 
-  }
-  elemOfAudio.play();
-}
+//   }
+//   elemOfAudio.play();
+// }
 
 export function stopSoundOfClock() {
   let timerID = setInterval(() => {
@@ -84,7 +86,6 @@ export function stopSoundOfClock() {
     }
   }, 500);
 }
-
 
 export function createImage(num) {
   let wrapper = document.querySelector(".wrapper");
@@ -131,6 +132,40 @@ export const isGameStat = {
   },
   getStartGameCondition() {
     return this.startGame;
+  }
+}
+
+export const setDifficultyGame = {
+  difficulty: "normal",
+  setDifficulty(value) {
+    this.difficulty = value;
+  },
+  getDifficulty() {
+    return this.difficulty;
+  }
+}
+
+export function startGameOne() {
+  setTimeout(() => {
+    let perspective = document.querySelector(".perspective");
+    document.querySelector(".game").style.display = "none";
+
+    perspective.style.display = "block";
+    perspective.className = "perspective";
+    document.body.style.backgroundColor = "#ff6b6b";
+
+    addEventsToNavbar();
+    setPath("categories");
+    clearPageOfImages();
+
+    reloadPage();
+  }, 2000);
+
+  function clearPageOfImages() {
+    for (let i = 0; i < 4; i++) {
+      let img = document.querySelector(".wrapper img");
+      document.querySelector(".wrapper").removeChild(img);
+    }
   }
 }
 

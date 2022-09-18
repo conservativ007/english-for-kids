@@ -168,7 +168,7 @@ body {
   height: 100%;
 }
 
-.overlay {
+/* .overlay {
   display: flex;
   align-items: center;
   position: absolute;
@@ -207,7 +207,7 @@ body {
 
 .overlay .menu__item:hover {
   cursor: pointer;
-}
+} */
 
 
 

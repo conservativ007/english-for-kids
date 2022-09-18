@@ -1,10 +1,15 @@
 import { init, setPath } from "./script.js";
 
 let elems = document.querySelectorAll("header ul li");
-elems.forEach(i => i.addEventListener("click", addActiveClassToNavbar));
+
+addEventsToNavbar();
+export function addEventsToNavbar() {
+  document.querySelectorAll("header ul li").forEach(i => i.addEventListener("click", addActiveClassToNavbar));
+}
+
 
 function addActiveClassToNavbar(e) {
-  elems.forEach(i => i.classList.remove("active-navigation"));
+  document.querySelectorAll("header ul li").forEach(i => i.classList.remove("active-navigation"));
   e.target.classList.add("active-navigation");
 
   if (e.target.innerHTML === "main") {

@@ -1,7 +1,7 @@
 import { getContent } from "./getContentForGame.js";
 import { getCardsToShooter } from "./getCardsToShooter.js";
 import { showQuestionToUser } from "./showQuestionToUser.js";
-import { createAudio, createImage, newCreateAudio, stopSoundOfClock } from "../functions.js";
+import { createImage, getRandomInteger, newCreateAudio, stopSoundOfClock } from "../functions.js";
 import { getClock, actionClock } from "./getClock.js";
 
 let body = document.body;
@@ -9,17 +9,23 @@ let perspectivePage = document.querySelector(".perspective");
 
 let arrOfClassnames = ["one", "two", "three", "four"];
 
-document.querySelector(".main button").addEventListener("click", () => {
+// document.querySelector(".main button").addEventListener("click", () => {
 
+//   perspectivePage.classList.add("animate");
+//   newCreateAudio("assets/sounds/you-are-not-prepared.mp3");
+//   setTimeout(() => printNumbers(0, 3), 3000);
+
+//   // need to test
+//   // initGameTwo();
+// });
+
+export function prepareForGameTwo() {
   perspectivePage.classList.add("animate");
-  newCreateAudio("assets/sounds/you-are-not-prepared.mp3");
-  setTimeout(() => printNumbers(0, 3), 3000);
+  setTimeout(() => newCreateAudio("assets/sounds/you-are-not-prepared.mp3"), 500);
+  setTimeout(() => getImagesForPage(0, 3), 3000);
+}
 
-  // need to test
-  // initGameTwo();
-});
-
-function printNumbers(from, to) {
+function getImagesForPage(from, to) {
 
   let current = from;
 
@@ -27,7 +33,8 @@ function printNumbers(from, to) {
     perspectivePage.classList.add(arrOfClassnames[current]);
 
     createImage(current);
-    createAudio("shot", current);
+    newCreateAudio(`assets/sounds/${getRandomInteger(1, 2)}.mp3`);
+    // createAudio("shot", current);
 
     if (current == to) {
       clearInterval(timerId);
@@ -46,17 +53,7 @@ function startGameTwo() {
   body.style.backgroundColor = "black";
 }
 
-export function startGameOne() {
-  setTimeout(() => {
-    let perspective = document.querySelector(".perspective");
-    document.querySelector(".game").style.display = "none";
 
-    perspective.style.display = "block";
-    perspective.className = "perspective";
-
-    body.style.backgroundColor = "#ff6b6b";
-  }, 2000);
-}
 
 function initGameTwo() {
   // clean board

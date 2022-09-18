@@ -1,5 +1,5 @@
 import { isGameStat, newCreateAudio, showMessageAfterGame, shuffle } from "../functions.js";
-import { startGameOne } from "./shoter.js";
+import { startGameOne } from "../functions.js";
 
 let count = 0;
 // let gameStarted = true;

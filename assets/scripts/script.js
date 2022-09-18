@@ -1,5 +1,7 @@
 import { setActiveClassToNavbar, setNavbarToDefaultCategory } from "./navbar.js";
 import { obj, statistics } from "./data.js";
+import { newCreateAudio, setDifficultyGame } from "./functions.js";
+import { prepareForGameTwo } from "./shooter/shoter.js";
 
 export let path = 'categories';
 export let startGame = false;
@@ -9,12 +11,9 @@ export let counterShots = -1;
 
 let arrCategory = [];
 
-let difficulty = "normal";
-
 export function setPath(name) {
   path = name;
 }
-
 
 init();
 export function init() {
@@ -66,6 +65,7 @@ function addCards(item, index) {
           </div>
           ${path != 'categories' ? addButtonAndSpicker() : ''}
         </div>
+        <div class="card__the-right-answer">&#10004;</div>
       </div>
 
       <div class="back">
@@ -170,6 +170,15 @@ function getArrCards() {
 export function checkArrayWords() {
   if (arrCategory.length != 0) return;
 
+  switch (setDifficultyGame.getDifficulty()) {
+    case "normal": getNormalEndGame();
+      break;
+    case "hard": prepareForGameTwo();
+      break;
+  }
+}
+
+function getNormalEndGame() {
   let modal = document.querySelector('.win-message');
   let message = document.querySelector('.win-message__text');
   let smileHappy = document.querySelector('.smile-happy');
@@ -181,13 +190,13 @@ export function checkArrayWords() {
     message.firstElementChild.innerHTML = 'Вы выйграли';
     message.lastElementChild.innerHTML = '';
     smileHappy.classList.remove('hidden');
-    endGameSound('winner');
+    newCreateAudio("./assets/sounds/end-game-win.mp3");
     setTimeout(() => reloadPage(modal, smileHappy), 15000);
   } else {
     message.firstElementChild.innerHTML = 'Вы проиграли';
     message.lastElementChild.innerHTML = `ошибок: ${7 - counterShots}`;
     smileCry.classList.remove('hidden');
-    endGameSound('loosers');
+    newCreateAudio("./assets/sounds/end-game-loosers.mp3");
     setTimeout(() => reloadPage(modal, smileCry), 5000);
   }
 
@@ -234,20 +243,6 @@ document.addEventListener('click', (e) => {
   }
 });
 
-// звук в конце игры
-function endGameSound(act) {
-
-  let endGameSound = '';
-
-  if (act == 'winner') {
-    endGameSound = document.querySelector('#sound5');
-  } else if (act == 'loosers') {
-    endGameSound = document.querySelector('#sound6');
-  }
-
-  endGameSound.play();
-}
-
 // записаить статистику при первичном заходе на страницу
 setStatistick();
 function setStatistick() {
@@ -290,7 +285,7 @@ document.addEventListener('click', (e) => {
 });
 
 
-function reloadPage(modal, smile) {
+export function reloadPage(modal, smile) {
   document.querySelector(".main-controls__start-button").disabled = true;
   document.querySelector(".main-controls").style.display = "flex";
   document.querySelector(".main-showprogress").style.display = "none";
@@ -303,11 +298,15 @@ function reloadPage(modal, smile) {
   shots = getRandomKeysArray(8);
   counterShots = -1;
 
-  modal.style.display = "none";
-  smile.classList.add('hidden');
+  if (setDifficultyGame.getDifficulty() === "normal") {
+    modal.style.display = "none";
+    smile.classList.add('hidden');
+  }
 
-  setNavbarToDefaultCategory();
+  setPath("categories");
+  setDifficultyGame.setDifficulty("normal");
   init();
+  setNavbarToDefaultCategory();
 }
 
 function getRandomKeysArray(num) {

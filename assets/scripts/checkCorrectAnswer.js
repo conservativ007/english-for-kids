@@ -1,3 +1,4 @@
+import { newCreateAudio, setDifficultyGame } from "./functions.js";
 import { changeStartGameButton } from "./navbar.js";
 import { startGame, sayWord, checkArrayWords, word, shots, setConterShots } from "./script.js";
 
@@ -9,7 +10,8 @@ document.addEventListener('click', (e) => {
   if (startGame === false) return;
 
   // получаем текст карточки по которой нажали
-  let cardElemText = e.target.closest('.front').lastElementChild.firstElementChild.innerHTML;
+  let cardElemText = e.target.closest('.front');
+  cardElemText = cardElemText.querySelector(".card__description-en").innerHTML;
 
   // блоки в которых находятся img (2 стороны)
   let cardFrontImg = e.target.closest('.front').firstElementChild;
@@ -27,7 +29,7 @@ document.addEventListener('click', (e) => {
 function moveToCorrectAnswer(bool, cardFrontImg, cardBackImg, card) {
   if (bool === true) {
     setTimeout(() => sayWord(), 1000);
-    shotImage(cardFrontImg, cardBackImg);
+    shotImage(cardFrontImg, cardBackImg, card);
     // hit shot counter 
     setHitCounter(true, word);
   } else {
@@ -42,7 +44,17 @@ function moveToCorrectAnswer(bool, cardFrontImg, cardBackImg, card) {
 }
 
 // наложение картинки на карточку
-function shotImage(front, back) {
+function shotImage(front, back, card) {
+  if (setDifficultyGame.getDifficulty() === "hard") {
+    shotImageHardmode(front, back)
+  }
+
+  if (setDifficultyGame.getDifficulty() === "normal") {
+    card.classList.add("the-right-answer");
+  }
+}
+
+function shotImageHardmode(front, back) {
   let chunckShots = shots.shift();
 
   let newImg = document.createElement('img');
@@ -58,6 +70,8 @@ function shotImage(front, back) {
 
 // трансформация карточек при игре
 function transform3D(card, bool) {
+  if (setDifficultyGame.getDifficulty() === "normal") return;
+
   if (bool) {
     let rand1 = randomInteger(30, 100);
     let rand2 = randomInteger(270, 330);
@@ -76,12 +90,18 @@ function transform3D(card, bool) {
 
 // звук)
 function shotAudio(bool) {
-  let randSound, shotSound;
+  let randSound = null;
 
-  randSound = bool ? randomInteger(1, 2) : randomInteger(3, 4);
+  switch (setDifficultyGame.getDifficulty()) {
+    case "normal": randSound = bool ? "normal_success" : "normal_error";
+      break;
+    case "hard": randSound = bool ? randomInteger(1, 2) : randomInteger(3, 4);
+      break;
 
-  shotSound = document.querySelector(`#sound${randSound}`);
-  shotSound.play();
+    default: randSound = "normal_success";
+  }
+
+  newCreateAudio(`./assets/sounds/${randSound}.mp3`);
 }
 
 // щётчик выстрелов
