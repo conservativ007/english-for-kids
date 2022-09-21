@@ -1,13 +1,15 @@
-import { newCreateAudio, setDifficultyGame } from "./functions.js";
+import { newCreateAudio } from "./functions.js";
 import { changeStartGameButton } from "./navbar.js";
-import { startGame, sayWord, checkArrayWords, word, shots, setConterShots } from "./script.js";
+import { checkArrayWords } from "./script.js";
+import { startGame, setDifficultyGame, word, arrayOfCards, counterShots, shots } from "./values.js";
+import { sayWord } from "./startGame.js";
 
 
 // this check user answer
 document.addEventListener('click', (e) => {
   if (e.target.closest('.card') === null) return;
   changeStartGameButton(false);
-  if (startGame === false) return;
+  if (startGame.getStartGame() === false) return;
 
   // получаем текст карточки по которой нажали
   let cardElemText = e.target.closest('.front');
@@ -19,7 +21,8 @@ document.addEventListener('click', (e) => {
 
   let card = e.target.closest('.card');
 
-  if (cardElemText == word) {
+  if (cardElemText.trim() === word.getWord()) {
+
     moveToCorrectAnswer(true, cardFrontImg, cardBackImg, card);
   } else {
     moveToCorrectAnswer(false, cardFrontImg, cardBackImg, card);
@@ -28,17 +31,17 @@ document.addEventListener('click', (e) => {
 
 function moveToCorrectAnswer(bool, cardFrontImg, cardBackImg, card) {
   if (bool === true) {
-    setTimeout(() => sayWord(), 1000);
+    if (arrayOfCards.getCards().length !== 0) setTimeout(() => sayWord(), 1000);
     shotImage(cardFrontImg, cardBackImg, card);
     // hit shot counter 
-    setHitCounter(true, word);
+    setHitCounter(true, word.getWord());
   } else {
-    setHitCounter(false, word);
+    setHitCounter(false, word.getWord());
   }
 
   shotAudio(bool);
   transform3D(card, bool);
-  getCounterShots(bool);
+  counterShots.setShots(bool);
   scaleMarks(bool);
   checkArrayWords();
 }
@@ -55,7 +58,7 @@ function shotImage(front, back, card) {
 }
 
 function shotImageHardmode(front, back) {
-  let chunckShots = shots.shift();
+  let chunckShots = shots.getSliceOfShots();
 
   let newImg = document.createElement('img');
   newImg.style.width = '200px';
@@ -65,7 +68,7 @@ function shotImageHardmode(front, back) {
   newImg.src = `assets/images/shots/${chunckShots + 1}.png`;
 
   front.append(newImg);
-  back.src = `assets/images/shots/${chunckShots + 1}.png`;
+  // back.src = `assets/images/shots/${chunckShots + 1}.png`;
 }
 
 // трансформация карточек при игре
@@ -106,7 +109,6 @@ function shotAudio(bool) {
 
 // щётчик выстрелов
 function getCounterShots(bool) {
-  // bool ? counterShots++ : counterShots--;
   setConterShots(bool);
 }
 
@@ -139,7 +141,6 @@ function setHitCounter(bool, elem) {
   let statisticsTwo = JSON.parse(localStorage.getItem('englishStatistics'));
 
   if (bool === true) {
-    console.log(bool, contentOfShotMiss)
     statisticsTwo.forEach(card => {
       if (card.en === contentOfShotHit) card.guessed += 1;
     });

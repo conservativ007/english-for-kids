@@ -1,26 +1,13 @@
-import { getContent } from "./getContentForGame.js";
+import { getContent } from "./getContent.js";
 import { getCardsToShooter } from "./getCardsToShooter.js";
 import { showQuestionToUser } from "./showQuestionToUser.js";
 import { createImage, getRandomInteger, newCreateAudio, stopSoundOfClock } from "../functions.js";
 import { getClock, actionClock } from "./getClock.js";
 
-let body = document.body;
-let perspectivePage = document.querySelector(".perspective");
-
 let arrOfClassnames = ["one", "two", "three", "four"];
 
-// document.querySelector(".main button").addEventListener("click", () => {
-
-//   perspectivePage.classList.add("animate");
-//   newCreateAudio("assets/sounds/you-are-not-prepared.mp3");
-//   setTimeout(() => printNumbers(0, 3), 3000);
-
-//   // need to test
-//   // initGameTwo();
-// });
-
 export function prepareForGameTwo() {
-  perspectivePage.classList.add("animate");
+  document.querySelector(".perspective").classList.add("animate");
   setTimeout(() => newCreateAudio("assets/sounds/you-are-not-prepared.mp3"), 500);
   setTimeout(() => getImagesForPage(0, 3), 3000);
 }
@@ -30,7 +17,7 @@ function getImagesForPage(from, to) {
   let current = from;
 
   function go() {
-    perspectivePage.classList.add(arrOfClassnames[current]);
+    document.querySelector(".perspective").classList.add(arrOfClassnames[current]);
 
     createImage(current);
     newCreateAudio(`assets/sounds/${getRandomInteger(1, 2)}.mp3`);
@@ -38,7 +25,7 @@ function getImagesForPage(from, to) {
 
     if (current == to) {
       clearInterval(timerId);
-      perspectivePage.classList.add("go-rotate-x");
+      document.querySelector(".perspective").classList.add("go-rotate-x");
 
       setTimeout(() => initGameTwo(), 2000);
     }
@@ -49,11 +36,9 @@ function getImagesForPage(from, to) {
 }
 
 function startGameTwo() {
-  perspectivePage.style.display = "none"
-  body.style.backgroundColor = "black";
+  document.querySelector(".perspective").style.display = "none"
+  document.body.style.backgroundColor = "black";
 }
-
-
 
 function initGameTwo() {
   // clean board

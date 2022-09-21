@@ -12,10 +12,14 @@ function init() {
   getStatistic(localStorStatistics);
 }
 
-document.querySelector(".modal-header__choice button")
-  .addEventListener("click", () => {
-    getOrder();
-  });
+addEventToOrderButtonInTheStatistic();
+export function addEventToOrderButtonInTheStatistic() {
+  document.querySelector(".modal-header__choice button")
+    .addEventListener("click", () => {
+      getOrder();
+    });
+}
+
 
 // get the values for sort
 function getOrder() {

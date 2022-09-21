@@ -1,27 +1,22 @@
-let modalBody = document.querySelector(".modal-body");
+addEventToStatistic();
+export function addEventToStatistic() {
 
-let modal = document.querySelector(".modal");
-let body = document.querySelector("body");
+  let modal = document.querySelector(".modal");
+  let body = document.querySelector("body");
 
-document.querySelector(".statistics").addEventListener("click", () => {
-  modal.style.display = "block";
-  body.style.overflow = "hidden";
-});
+  document.querySelector(".statistics").addEventListener("click", () => {
+    modal.style.display = "block";
+    body.style.overflow = "hidden";
+  });
 
-document.querySelector(".close").addEventListener("click", () => {
-  modal.style.display = "none";
-  body.style.overflow = "auto";
-});
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function (event) {
-  if (event.target == modal) {
+  document.querySelector(".close").addEventListener("click", () => {
     modal.style.display = "none";
-  }
+    body.style.overflow = "auto";
+  });
 }
 
 export function getStatistic(elems) {
-  modalBody.innerHTML = "";
+  document.querySelector(".modal-body").innerHTML = "";
   elems.forEach(elem => {
 
     let item = document.createElement("div");
@@ -48,7 +43,7 @@ export function getStatistic(elems) {
     item.append(lookedAnswer);
     item.append(guessedCorrectly);
     item.append(didNotGuessedCorrectly);
-    modalBody.append(item);
+    document.querySelector(".modal-body").append(item);
   });
 }
 
@@ -66,4 +61,34 @@ document.addEventListener("click", e => {
       item.classList.add("show");
     }
   })
+});
+
+// записаить статистику при первичном заходе на страницу
+setStatistick();
+function setStatistick() {
+  if (!localStorage.getItem('englishStatistics')) {
+    localStorage.setItem('englishStatistics', JSON.stringify(statistics));
+  }
+}
+
+// счётчик, сколько пользователь переврнул карточку и посмотрел перевод)
+document.addEventListener('click', (e) => {
+  if (e.target.dataset.reverse) {
+    let parentElem = e.target.closest('.card');
+    let contentOfChildElem = parentElem.querySelector('.card__description-en').innerHTML;
+    contentOfChildElem = contentOfChildElem.trim();
+
+    let statisticsTwo = JSON.parse(localStorage.getItem('englishStatistics'));
+
+    statisticsTwo.forEach(card => {
+      if (card.en === contentOfChildElem) card.lookedAnswer += 1;
+    });
+    localStorage.setItem('englishStatistics', JSON.stringify(statisticsTwo));
+  }
+});
+
+// сброс статистики
+document.addEventListener('click', (e) => {
+  if (e.target.className != 'reset-statistic') return;
+  localStorage.setItem('englishStatistics', JSON.stringify(statistics));
 });

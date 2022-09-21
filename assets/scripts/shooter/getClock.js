@@ -1,4 +1,5 @@
-import { countForClock, newCreateAudio } from "../functions.js";
+import { countForClock, countForUserQuestions, startGame } from "../values.js";
+import { newCreateAudio } from "../functions.js";
 
 export function getClock() {
   let elemOfGame = document.querySelector(".game-inner__front");
@@ -39,6 +40,10 @@ export function actionClock() {
   }
 
   let timerId = setInterval(() => {
+    if (startGame.getStartGame() === false) {
+      clearInterval(timerId);
+      countForUserQuestions.setCountToDefault();
+    }
     countForClock.countDecrease();
     setSecondToTimer();
     elemOfSecondsDisplay.innerHTML = countForClock.getCount();

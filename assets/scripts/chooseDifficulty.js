@@ -1,10 +1,11 @@
-import { setDifficultyGame } from "./functions.js";
+import { setDifficultyGame } from "./values.js";
 
-let select = document.querySelector(".difficulty-mode");
+setDifficulty();
+export function setDifficulty() {
+  document.querySelector(".difficulty-mode").addEventListener("click", (e) => {
+    setDifficultyGame.setDifficulty(e.target.value);
+  });
+}
 
-select.addEventListener("click", (e) => {
-  setDifficultyGame.setDifficulty(e.target.value);
-  console.log(setDifficultyGame.getDifficulty());
-})
 
 

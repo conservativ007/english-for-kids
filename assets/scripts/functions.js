@@ -1,6 +1,13 @@
+import { setDifficulty } from "./chooseDifficulty.js";
 import { statistics } from "./data.js";
-import { addEventsToNavbar, setNavbarToDefaultCategory } from "./navbar.js";
-import { init, reloadPage, setPath } from "./script.js";
+import { addEventToDropdownMenuInTheStatistic } from "./dropdown.js";
+import { addEventToStatistic } from "./getStatistic.js";
+import { addEventToOrderButtonInTheStatistic } from "./modal.js";
+import { addEventsToNavbar } from "./navbar.js";
+import { reloadPage } from "./script.js";
+import { prepareForGameTwo } from "./shooter/shoter.js";
+import { sayWord } from "./startGame.js";
+import { path, countForClock, countForUserQuestions, startGame } from "./values.js";
 
 export function getRandomInteger(min, max) {
   let rand = min + Math.random() * (max + 1 - min);
@@ -30,7 +37,6 @@ function setImgPosition(num) {
   }
   if (num === 1) {
     return {
-
       "top": "34%",
       "left": "11%"
     }
@@ -60,29 +66,14 @@ export function newCreateAudio(src = "", bool = false) {
   if (bool === true) audioObj.pause();
 }
 
-// export function createAudio(phrase, num, stopPlayingAudio = false) {
-
-//   let elemOfAudio = document.createElement("AUDIO");
-
-//   if (phrase === "you-are-not-prepared") {
-//     elemOfAudio.src = `assets/sounds/you-are-not-prepared.mp3`;
-//   }
-//   else if (phrase === "shot") {
-//     elemOfAudio.src = `assets/sounds/${num % 2 === 0 ? 1 : 2}.mp3`;
-//   }
-//   else if (phrase === "clock_ticking") {
-//     elemOfAudio.src = `assets/sounds/alarm_clock_ticking.mp3`;
-
-//   }
-//   elemOfAudio.play();
-// }
-
 export function stopSoundOfClock() {
   let timerID = setInterval(() => {
     if (countForClock.getCount() === 0) {
+      console.log("show message after game after stopSoundOf Clock ");
       showMessageAfterGame(false, "You lose");
       newCreateAudio("", true);
       clearInterval(timerID);
+      startGameOne();
     }
   }, 500);
 }
@@ -103,69 +94,73 @@ export function showMessageAfterGame(bool, message) {
   let elemOfInnerFront = document.querySelector(".game-inner__front");
   let elemOfUserMessageAfterGame = document.querySelector(".game-inner__back p");
 
+  if (elemOfInnerFront && elemOfUserMessageAfterGame) {
+    elemOfUserMessageAfterGame.innerHTML = message;
+    elemOfInnerFront.classList.add("flip");
+  }
+
   if (bool === true) {
-    elemOfUserMessageAfterGame.innerHTML = message;
-    elemOfInnerFront.classList.add("flip");
-  } else {
-    elemOfUserMessageAfterGame.innerHTML = message;
-    elemOfInnerFront.classList.add("flip");
-  }
-}
-
-export const countForClock = {
-  count: 22,
-  countDecrease() {
-    this.count -= 1;
-  },
-  getCount() {
-    return this.count;
-  }
-}
-
-export const isGameStat = {
-  startGame: false,
-  letsStartGame() {
-    this.startGame = true;
-  },
-  letsStopGame() {
-    this.startGame = false;
-  },
-  getStartGameCondition() {
-    return this.startGame;
-  }
-}
-
-export const setDifficultyGame = {
-  difficulty: "normal",
-  setDifficulty(value) {
-    this.difficulty = value;
-  },
-  getDifficulty() {
-    return this.difficulty;
+    document.querySelector(".game-inner__back").style.backgroundColor = "#00b894";
   }
 }
 
 export function startGameOne() {
   setTimeout(() => {
     let perspective = document.querySelector(".perspective");
-    document.querySelector(".game").style.display = "none";
 
     perspective.style.display = "block";
     perspective.className = "perspective";
     document.body.style.backgroundColor = "#ff6b6b";
 
     addEventsToNavbar();
-    setPath("categories");
+    path.setPath("categories");
     clearPageOfImages();
-
+    document.querySelector(".repeat-button").addEventListener("click", () => sayWord(true));
+    document.querySelector("body").removeChild(document.querySelector(".game"));
+    setDifficulty();
+    countForClock.setDefaultClock();
+    countForUserQuestions.setCountToDefault();
+    startGame.setStartGame(false);
     reloadPage();
+    addEventToStatistic();
+    addEventToDropdownMenuInTheStatistic();
+    addEventToOrderButtonInTheStatistic();
   }, 2000);
 
   function clearPageOfImages() {
     for (let i = 0; i < 4; i++) {
-      let img = document.querySelector(".wrapper img");
-      document.querySelector(".wrapper").removeChild(img);
+      let img = document.querySelector(".wrapper .shoter-img");
+      if (img !== null) document.querySelector(".wrapper").removeChild(img);
     }
   }
 }
+
+export function getRandomKeysArray(num) {
+  let elems = [...Array(num).keys()]
+    .sort(() => Math.random() - 0.5);
+
+  return elems;
+}
+
+// clearPage();
+export function clearPage() {
+  let elems = document.querySelectorAll('.card');
+  elems.forEach(i => i.classList.add('hidden'));
+}
+
+export function pronunciation(e) {
+  let parent = e.parentNode;
+  let description = parent.querySelector(".card__description-en").innerHTML.trim();
+  speechEnglish(description);
+}
+
+export function speechEnglish(text) {
+  let synth = window.speechSynthesis;
+  let message = new SpeechSynthesisUtterance();
+  message.lang = 'en-US';
+  message.text = text;
+  synth.speak(message);
+}
+
+
 

@@ -1,4 +1,6 @@
-import { init, setPath } from "./script.js";
+import { init } from "./getCards.js";
+import { path } from "./values.js";
+
 
 let elems = document.querySelectorAll("header ul li");
 
@@ -13,10 +15,10 @@ function addActiveClassToNavbar(e) {
   e.target.classList.add("active-navigation");
 
   if (e.target.innerHTML === "main") {
-    setPath("categories");
+    path.setPath("categories");
     changeStartGameButton(true);
   } else {
-    setPath(e.target.innerHTML);
+    path.setPath(e.target.innerHTML);
     changeStartGameButton(false);
   }
   init();

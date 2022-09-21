@@ -17,7 +17,7 @@
   <title>english-for-kids</title>
   
   <script type="module" defer src="./assets/scripts/script.js"></script>
-  <script defer src="./assets/scripts/pronunciation.js"></script>
+  <script type="module" defer src="./assets/scripts/startGame.js"></script>
   <script type="module" defer src="./assets/scripts/modal.js"></script>
   <script type="module" defer src="./assets/scripts/getStatistic.js"></script>
   <script type="module" defer src="./assets/scripts/dropdown.js"></script>
@@ -25,6 +25,7 @@
   <script type="module" defer src="./assets/scripts/checkCorrectAnswer.js"></script>
   <script type="module" defer src="./assets/scripts/shooter/shoter.js"></script>
   <script type="module" defer src="./assets/scripts/chooseDifficulty.js"></script>
+  <script type="module" defer src="./assets/scripts/getCards.js"></script>
  
 </head>
 <body>
@@ -46,7 +47,7 @@
       </header>
       
       <div class="main">
-        <!-- <button>go</button> -->
+        <!-- <button class="test">go</button> -->
         <div class="main-controls">
           <select class="difficulty-mode" name="" id="">
             <option selected value="normal">normal</option>
@@ -71,32 +72,6 @@
         <img class="smile-cry hidden" src="assets/images/icons/crying.png" alt="">
       </div>
 
-      <div id="myModal" class="modal">
-
-        <div class="modal-content">
-          <div class="modal-header">
-            <div class="modal-header__choice">
-              <div class="dropdown">
-                <input type="text" class="text-box" value="a-z">
-                <div class="option">
-                  <div>a-z</div>
-                  <div>looked-answer</div>
-                  <div>guessed</div>
-                  <div>did-not-guessed</div>
-                </div>
-              </div>
-              <p class="arrow-sort hide">&#8595;</p>
-              <p class="arrow-sort show">&#8593;</p>
-              <button>ok</button>
-            </div>
-            
-            <span class="close">&#x2715;</span>
-          </div>
-          <div class="modal-body"></div>
-        </div>
-      
-      </div>
-
       <footer class="footer">
         <div class="footer-content">
           <div class="link-author">
@@ -111,6 +86,30 @@
         </div>
       </footer>
       <div class="user-message hide">пожалуйсто выберите категорию</div>
+    </div>
+  </div>
+  
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-header__choice">
+          <div class="dropdown">
+            <input type="text" class="text-box" value="a-z">
+            <div class="option">
+              <div>a-z</div>
+              <div>looked-answer</div>
+              <div>guessed</div>
+              <div>did-not-guessed</div>
+            </div>
+          </div>
+          <p class="arrow-sort hide">&#8595;</p>
+          <p class="arrow-sort show">&#8593;</p>
+          <button>ok</button>
+        </div>
+        
+        <span class="close">&#x2715;</span>
+      </div>
+      <div class="modal-body"></div>
     </div>
   </div>
 </body>
