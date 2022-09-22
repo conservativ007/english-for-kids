@@ -25,7 +25,7 @@ export let obj = {
   ],
 
   'naturalRu': [
-    'пляж', 'цветы', 'радуга', 'снег', 'солнце', 'дерево', 'вулкан', 'вода'
+    'пляж', 'цветы', 'радуга', 'снежинка', 'солнце', 'дерево', 'вулкан', 'вода'
   ],
 
   'space': [
@@ -45,7 +45,7 @@ export let obj = {
   ],
 
   'city': [
-    'banking', 'building', 'bus', 'park', 'road', 'taxi', 'traffic-light', 'tram'
+    'bank', 'building', 'bus', 'park', 'road', 'taxi', 'traffic-light', 'tram'
   ],
 
   'cityRu': [
@@ -61,11 +61,11 @@ export let obj = {
   ],
 
   'emotion': [
-    'angry', 'confusion', 'cry', 'friendship', 'happy', 'love', 'thinking', 'tired'
+    'angry', 'confusion', 'cry', 'friendship', 'happy', 'love', 'think', 'tired'
   ],
 
   'emotionRu': [
-    'злость', 'спутанность', 'плакать', 'дружба', 'счастье', 'любовь', 'мышление', 'усталость'
+    'злость', 'спутанность', 'плакать', 'дружба', 'счастье', 'любовь', 'мышление', 'уставший'
   ],
 };
 
@@ -205,7 +205,7 @@ export let statistics = [
   },
   {
     en: 'snowflake',
-    ru: 'снег',
+    ru: 'снежинка',
     lookedAnswer: 0,
     guessed: 0,
     didNotGuess: 0,
@@ -407,7 +407,7 @@ export let statistics = [
     didNotGuess: 0,
   },
   {
-    en: 'banking',
+    en: 'bank',
     ru: 'банк',
     lookedAnswer: 0,
     guessed: 0,
@@ -505,15 +505,15 @@ export let statistics = [
     didNotGuess: 0,
   },
   {
-    en: 'thinking',
-    ru: 'мышление',
+    en: 'think',
+    ru: 'думать',
     lookedAnswer: 0,
     guessed: 0,
     didNotGuess: 0,
   },
   {
     en: 'tired',
-    ru: 'усталость',
+    ru: 'уставший',
     lookedAnswer: 0,
     guessed: 0,
     didNotGuess: 0,

@@ -1,9 +1,13 @@
-.dropdown {
+.main .dropdown {
   position: relative;
   width: 120px;
   height: 35px;
+}
 
-  font-size: 17px;
+.modal .dropdown {
+  position: relative;
+  width: 160px;
+  height: 35px;
 }
 
 .dropdown::before {
@@ -37,7 +41,7 @@
   padding: 12px 20px;
   border-radius: 10px;
 
-  font-size: 17px;
+  font-size: 14px;
 }
 
 .dropdown .option {
@@ -79,6 +83,7 @@
   }
 
   .dropdown input {
-    font-size: 15px;
+    font-size: 12px;
+    padding: 10px 5px;
   }
 }

@@ -6,13 +6,11 @@ import { speechEnglish } from "./functions.js";
 
 init();
 export function init() {
-  console.log(path.getPath())
   createCards(obj[path.getPath()]);
 }
 
 function createCards(arr) {
   let contentCards = document.querySelector('.content-carts');
-  // console.log(arr)
   contentCards.innerHTML = `${arr.map(addCards).join('')}`;
 }
 

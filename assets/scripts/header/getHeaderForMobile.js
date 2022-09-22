@@ -2,7 +2,6 @@ import { getWidthOfElem } from "../functions.js";
 import { path } from "../values.js";
 import { arrOfInnerNavbar, desktop, mobile } from "./headerValues.js";
 import { addEventsToNavbar } from "./navbar.js";
-let elemOfWrapper = document.querySelector(".wrapper");
 
 function setHeader() {
   let header = document.createElement("header");
@@ -27,8 +26,8 @@ function setHeader() {
 
   header.prepend(ul);
 
-  elemOfWrapper.removeChild(document.querySelector("header"));
-  elemOfWrapper.prepend(header);
+  document.querySelector(".wrapper").removeChild(document.querySelector("header"));
+  document.querySelector(".wrapper").prepend(header);
 }
 
 setInterval(() => {
