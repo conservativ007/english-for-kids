@@ -1,9 +1,8 @@
 import { setDifficultyGame } from "./values.js";
 
-setDifficulty();
-export function setDifficulty() {
+addEventToSetDifficulty();
+export function addEventToSetDifficulty() {
   document.querySelector(".main .dropdown").addEventListener("click", (e) => {
-    // console.log(e.target.innerHTML)
     setDifficultyGame.setDifficulty(e.target.innerHTML);
   });
 }

@@ -1,3 +1,5 @@
+import { statistics } from "./data.js";
+
 addEventToStatistic();
 export function addEventToStatistic() {
 
@@ -92,3 +94,13 @@ document.addEventListener('click', (e) => {
   if (e.target.className != 'reset-statistic') return;
   localStorage.setItem('englishStatistics', JSON.stringify(statistics));
 });
+
+// высчитать процент правильных ответов
+function getPercentageGuessing(a, b) {
+  let res = (a / (a + b)) * 100;
+
+  if (isNaN(res)) {
+    return 0;
+  }
+  return res.toFixed(0);
+}

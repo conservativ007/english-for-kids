@@ -1,13 +1,7 @@
-import { setDifficulty } from "./chooseDifficulty.js";
 import { statistics } from "./data.js";
-import { addEventToDropdownMenuInTheMain, addEventToDropdownMenuInTheStatistic } from "./dropdownInStatistics.js";
-import { addEventToStatistic } from "./getStatistic.js";
-import { addEventToOrderButtonInTheStatistic } from "./modal.js";
-import { addEventsToNavbar } from "./header/navbar.js";
-import { reloadPage } from "./script.js";
+import { reloadPage, startGameOne } from "./reloadPage.js";
 import { prepareForGameTwo } from "./shooter/shoter.js";
-import { sayWord } from "./startGame.js";
-import { path, countForClock, countForUserQuestions, startGame } from "./values.js";
+import { countForClock, setDifficultyGame, arrayOfCards, counterShots } from "./values.js";
 
 export function getRandomInteger(min, max) {
   let rand = min + Math.random() * (max + 1 - min);
@@ -104,38 +98,6 @@ export function showMessageAfterGame(bool, message) {
   }
 }
 
-export function startGameOne() {
-  setTimeout(() => {
-    let perspective = document.querySelector(".perspective");
-
-    perspective.style.display = "block";
-    perspective.className = "perspective";
-    document.body.style.backgroundColor = "#ff6b6b";
-
-    addEventsToNavbar();
-    path.setPath("categories");
-    clearPageOfImages();
-    document.querySelector(".repeat-button").addEventListener("click", () => sayWord(true));
-    document.querySelector("body").removeChild(document.querySelector(".game"));
-    setDifficulty();
-    countForClock.setDefaultClock();
-    countForUserQuestions.setCountToDefault();
-    startGame.setStartGame(false);
-    reloadPage();
-    addEventToStatistic();
-    addEventToDropdownMenuInTheStatistic();
-    addEventToDropdownMenuInTheMain();
-    addEventToOrderButtonInTheStatistic();
-  }, 2000);
-
-  function clearPageOfImages() {
-    for (let i = 0; i < 4; i++) {
-      let img = document.querySelector(".wrapper .shoter-img");
-      if (img !== null) document.querySelector(".wrapper").removeChild(img);
-    }
-  }
-}
-
 export function getRandomKeysArray(num) {
   let elems = [...Array(num).keys()]
     .sort(() => Math.random() - 0.5);
@@ -149,18 +111,47 @@ export function clearPage() {
   elems.forEach(i => i.classList.add('hidden'));
 }
 
-export function pronunciation(e) {
-  let parent = e.parentNode;
-  let description = parent.querySelector(".card__description-en").innerHTML.trim();
-  speechEnglish(description);
-}
-
 export function speechEnglish(text) {
   let synth = window.speechSynthesis;
   let message = new SpeechSynthesisUtterance();
   message.lang = 'en-US';
   message.text = text;
   synth.speak(message);
+}
+
+export function checkArrayWords() {
+  if (arrayOfCards.getCards().length !== 0) return;
+
+  switch (setDifficultyGame.getDifficulty()) {
+    case "normal": getNormalEndGame();
+      break;
+    case "hard": prepareForGameTwo();
+      break;
+  }
+}
+
+function getNormalEndGame() {
+  let modal = document.querySelector('.win-message');
+  let message = document.querySelector('.win-message__text');
+  let smileHappy = document.querySelector('.smile-happy');
+  let smileCry = document.querySelector('.smile-cry');
+
+  modal.style.display = "block";
+
+  if (counterShots.getShots() === 8) {
+    message.firstElementChild.innerHTML = 'Вы выйграли';
+    message.lastElementChild.innerHTML = '';
+    smileHappy.classList.remove('hidden');
+    newCreateAudio("./assets/sounds/end-game-win.mp3");
+    setTimeout(() => reloadPage(modal, smileHappy), 15000);
+  } else {
+    message.firstElementChild.innerHTML = 'Вы проиграли';
+    message.lastElementChild.innerHTML = `ошибок: ${8 - counterShots.getShots()}`;
+    smileCry.classList.remove('hidden');
+    newCreateAudio("./assets/sounds/end-game-loosers.mp3");
+    setTimeout(() => reloadPage(modal, smileCry), 5000);
+  }
+  clearPage();
 }
 
 export const getWidthOfElem = () => document.querySelector(".wrapper").getBoundingClientRect().width;

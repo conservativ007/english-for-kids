@@ -1,6 +1,6 @@
 import { newCreateAudio } from "./functions.js";
 import { changeStartGameButton } from "./header/navbar.js";
-import { checkArrayWords } from "./script.js";
+import { checkArrayWords } from "./functions.js";
 import { startGame, setDifficultyGame, word, arrayOfCards, counterShots, shots } from "./values.js";
 import { sayWord } from "./startGame.js";
 
@@ -105,11 +105,6 @@ function shotAudio(bool) {
   }
 
   newCreateAudio(`./assets/sounds/${randSound}.mp3`);
-}
-
-// щётчик выстрелов
-function getCounterShots(bool) {
-  setConterShots(bool);
 }
 
 // отрисовка звёздочек (которые заполняют шкалу)

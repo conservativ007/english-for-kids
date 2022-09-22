@@ -169,7 +169,7 @@ body {
 
 .win-message {
   position: absolute;
-  top: 50%;
+  top: 20%;
   left: 50%;
   transform: translate(-50%, -50%);
   display: none;
@@ -197,7 +197,7 @@ body {
 .win-message .smile-happy,
 .win-message .smile-cry {
   position: absolute;
-  top: 30%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%);
   width: 150px;
@@ -251,5 +251,13 @@ body {
 @media(max-width: 399px) {
   .main-controls {
     width: 350px;
+  }
+
+  .main button {
+    width: 100px;
+  }
+
+  .main .statistics {
+    width: 100px;
   }
 }

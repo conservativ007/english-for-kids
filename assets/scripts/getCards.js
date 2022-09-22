@@ -131,6 +131,7 @@ document.addEventListener('click', (e) => {
     let card = e.target.closest('.card');
     let text = card.querySelector(".card__description-en").innerHTML;
     text = text.trim();
+    // console.log(text)
     speechEnglish(text);
   }
 });

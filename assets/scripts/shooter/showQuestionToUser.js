@@ -1,5 +1,5 @@
 import { newCreateAudio, showMessageAfterGame, shuffle } from "../functions.js";
-import { startGameOne } from "../functions.js";
+import { startGameOne } from "../reloadPage.js";
 import { countForUserQuestions, startGame } from "../values.js";
 
 export function showQuestionToUser(questions) {
