@@ -1,5 +1,5 @@
 import { newCreateAudio } from "./functions.js";
-import { changeStartGameButton } from "./navbar.js";
+import { changeStartGameButton } from "./header/navbar.js";
 import { checkArrayWords } from "./script.js";
 import { startGame, setDifficultyGame, word, arrayOfCards, counterShots, shots } from "./values.js";
 import { sayWord } from "./startGame.js";
@@ -128,7 +128,7 @@ function scaleMarks(bool) {
 
 function addScaleMarks() {
   let elems = document.querySelectorAll('.star');
-  if (elems.length > 10) {
+  if (elems.length > 8) {
     let child = document.querySelector('.star');
     child.parentNode.removeChild(child);
   }

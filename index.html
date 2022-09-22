@@ -20,39 +20,38 @@
   <script type="module" defer src="./assets/scripts/startGame.js"></script>
   <script type="module" defer src="./assets/scripts/modal.js"></script>
   <script type="module" defer src="./assets/scripts/getStatistic.js"></script>
-  <script type="module" defer src="./assets/scripts/dropdown.js"></script>
-  <script type="module" defer src="./assets/scripts/navbar.js"></script>
+  <script type="module" defer src="./assets/scripts/dropdownInStatistics.js"></script>
+  <script type="module" defer src="./assets/scripts/header/navbar.js"></script>
   <script type="module" defer src="./assets/scripts/checkCorrectAnswer.js"></script>
   <script type="module" defer src="./assets/scripts/shooter/shoter.js"></script>
   <script type="module" defer src="./assets/scripts/chooseDifficulty.js"></script>
   <script type="module" defer src="./assets/scripts/getCards.js"></script>
+  <script type="module" defer src="./assets/scripts/header/getHeaderForMobile.js"></script>
+  <script type="module" defer src="./assets/scripts/header/getHeaderForDesktop.js"></script>
  
 </head>
 <body>
   <div class="perspective">
     <div class="wrapper">
-      <header>
-        <ul>
-          <li class="active-navigation">main</li>
-          <li>space</li>
-          <li>natural</li>
-          <li>animals</li>
-          <li>home</li>
-          <li>colors</li>
-          <li>emotion</li>
-          <li>food</li>
-          <li>city</li>
-          <li class="slide"></li>
-        </ul>
-      </header>
+      <header></header>
       
       <div class="main">
         <!-- <button class="test">go</button> -->
         <div class="main-controls">
-          <select class="difficulty-mode" name="" id="">
+          
+          <!-- <select class="difficulty-mode" name="" id="">
             <option selected value="normal">normal</option>
             <option value="hard">hard</option>
-          </select>
+          </select> -->
+          <div class="dropdown">
+            <input type="text" class="text-box" value="normal">
+            <div class="option">
+              <div>normal</div>
+              <div>hard</div>
+            </div>
+          </div>
+
+          
           <button disabled class="main-controls__start-button">train</button>
           <div class="statistics">статистика</div>
         </div>

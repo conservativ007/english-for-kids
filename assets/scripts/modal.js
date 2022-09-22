@@ -23,7 +23,7 @@ export function addEventToOrderButtonInTheStatistic() {
 
 // get the values for sort
 function getOrder() {
-  selectValue = document.querySelector(".text-box").value;
+  selectValue = document.querySelector(".modal .text-box").value;
   document.querySelectorAll(".modal-header__choice p")
     .forEach(i => {
       if (i.classList[1] === "show") order = i.innerHTML;

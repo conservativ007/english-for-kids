@@ -1,4 +1,4 @@
-import { setNavbarToDefaultCategory } from "./navbar.js";
+import { setNavbarToDefaultCategory } from "./header/navbar.js";
 import { clearPage, newCreateAudio } from "./functions.js";
 import { prepareForGameTwo } from "./shooter/shoter.js";
 import { startGame, path, setDifficultyGame, word, arrayOfCards, counterShots, shots, printAllValues, countForClock } from "./values.js";

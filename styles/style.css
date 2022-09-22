@@ -88,18 +88,22 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  /* display: none; */
 }
 
 .statistics {
   text-align: center;
-  width: 100px;
+  width: 120px;
+  height: 35px;
   padding: 5px 10px;
   background-color: white;
   color: black;
   cursor: pointer;
   border-radius: 4px;
+  font-size: 18px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .main-showprogress {
@@ -121,7 +125,7 @@ body {
 }
 
 .scale-marks {
-  width: 300px;
+  width: 250px;
   height: 40px;
   margin: 0 auto;
   background: white;
@@ -193,7 +197,7 @@ body {
 .win-message .smile-happy,
 .win-message .smile-cry {
   position: absolute;
-  top: 50%;
+  top: 30%;
   left: 50%;
   transform: translate(-50%);
   width: 150px;
@@ -230,4 +234,22 @@ body {
   color: white;
   font-size: 20px;
   letter-spacing: 1.5px;
+}
+
+@media(max-width: 599px) {
+  .main-controls {
+    width: 500px;
+  }
+}
+
+@media(max-width: 499px) {
+  .main-controls {
+    width: 400px;
+  }
+}
+
+@media(max-width: 399px) {
+  .main-controls {
+    width: 350px;
+  }
 }

@@ -1,25 +1,18 @@
 import { obj } from "./data.js";
 import { startGame, path } from "./values.js";
-import { setActiveClassToNavbar } from "./navbar.js";
+import { setActiveClassToNavbar } from "./header/navbar.js";
 import { speechEnglish } from "./functions.js";
 
 
 init();
 export function init() {
+  console.log(path.getPath())
   createCards(obj[path.getPath()]);
 }
 
 function createCards(arr) {
   let contentCards = document.querySelector('.content-carts');
-
-  // let main = document.querySelector('.main');
-  // let testButton = document.createElement("button");
-  // testButton.className = "test";
-  // testButton.innerHTML = "test";
-
-  // main.prepend(testButton);
-
-  // main.innerHTML = "<button>123</button>";
+  // console.log(arr)
   contentCards.innerHTML = `${arr.map(addCards).join('')}`;
 }
 

@@ -46,6 +46,8 @@
   display: none;
 
   background-color: #2d3436;
+  color: white;
+  z-index: 1;
 }
 
 .dropdown.dropdown-active .option {

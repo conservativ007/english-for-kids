@@ -1,9 +1,9 @@
 import { setDifficulty } from "./chooseDifficulty.js";
 import { statistics } from "./data.js";
-import { addEventToDropdownMenuInTheStatistic } from "./dropdown.js";
+import { addEventToDropdownMenuInTheMain, addEventToDropdownMenuInTheStatistic } from "./dropdownInStatistics.js";
 import { addEventToStatistic } from "./getStatistic.js";
 import { addEventToOrderButtonInTheStatistic } from "./modal.js";
-import { addEventsToNavbar } from "./navbar.js";
+import { addEventsToNavbar } from "./header/navbar.js";
 import { reloadPage } from "./script.js";
 import { prepareForGameTwo } from "./shooter/shoter.js";
 import { sayWord } from "./startGame.js";
@@ -124,6 +124,7 @@ export function startGameOne() {
     reloadPage();
     addEventToStatistic();
     addEventToDropdownMenuInTheStatistic();
+    addEventToDropdownMenuInTheMain();
     addEventToOrderButtonInTheStatistic();
   }, 2000);
 
@@ -161,6 +162,8 @@ export function speechEnglish(text) {
   message.text = text;
   synth.speak(message);
 }
+
+export const getWidthOfElem = () => document.querySelector(".wrapper").getBoundingClientRect().width;
 
 
 

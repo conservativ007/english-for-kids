@@ -5,7 +5,6 @@
   perspective: 1500px;
 }
 
-
 /* Modal view */
 .perspective.modalview {
   position: fixed;
@@ -22,35 +21,16 @@
   backface-visibility: hidden;
 }
 
-/* .animate .wrapper::after {
-  opacity: 1;
-  height: 101%;
-  -webkit-transition: opacity 0.3s;
-  transition: opacity 0.3s;
-} */
-
 /* Effect Rotate Left */
 .perspective.modalview.animate {
   transition: background-color 1s;
   background-color: #e96e4f;
 }
 
-.perspective .wrapper {
-  /* -webkit-transition: -webkit-transform 0.4s; */
-  /* transition: transform 0.4s; */
-  /* -webkit-transform-origin: 0% 50%; */
-  /* transform-origin: 0% 50%; */
-}
-
 .perspective .wrapper::after {
   background: rgba(255, 255, 255, 0.6);
 }
 
-/* animate */
-/* .perspective.animate .wrapper {
-  -webkit-transform: translateZ(-1800px) translateX(-50%) rotateY(45deg);
-  transform: translateZ(-1800px) translateX(-50%) rotateY(45deg);
-} */
 .perspective.animate.one .wrapper {
   /* -webkit-transform: translateZ(-1800px) translateX(-50%) rotateY(45deg); */
   transform: translateZ(-100px) translateX(10%) rotateY(9deg);
