@@ -4,7 +4,7 @@
 
 [English-for-kids](https://conservativ007.github.io/english-for-kids/)
 
-![English-for-kids](assets\images\logo_markdown\english-for-kids.png)
+![English-for-kids](/assets/images/logo_markdown/english-for-kids.png)
 
 #### Technology stack:
 ##### `html, css, js.`
